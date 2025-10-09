@@ -4,16 +4,685 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>دليل الصيد الليبي - التحميل</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7491540718203710"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7491540718203710" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
+
+        :root {
+            --primary: #1e88e5;
+            --primary-dark: #1565c0;
+            --secondary: #ff9800;
+            --secondary-dark: #f57c00;
+            --danger: #ff0000;
+            --danger-dark: #cc0000;
+            --success: #4caf50;
+            --success-dark: #388e3c;
+            --dark: #0f2043;
+            --darker: #0a1529;
+            --light: #a0d8ff;
+            --lighter: #e0e0e0;
+            --white: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --card-bg-hover: rgba(30, 136, 229, 0.2);
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--white);
+            line-height: 1.6;
+            direction: rtl;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* رأس الصفحة */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .app-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.4);
+            border: 3px solid var(--primary);
+        }
+
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .app-description {
+            font-size: 18px;
+            color: var(--light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* معلومات الإصدار */
+        .version-info {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .label {
+            font-size: 14px;
+            color: var(--light);
+            margin-bottom: 5px;
+        }
+
+        .value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* وصف التطبيق */
+        .app-description-section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .app-description-section h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--white);
+            position: relative;
+            display: inline-block;
+        }
+
+        .app-description-section h2:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .app-description-section p {
+            font-size: 16px;
+            color: var(--lighter);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* معرض الصور */
+        .screenshots {
+            margin-bottom: 30px;
+        }
+
+        .screenshots h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .screenshots h2:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 100px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .screenshots-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .screenshot {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .screenshot:hover {
+            transform: translateY(-5px);
+        }
+
+        .screenshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .screenshot:hover img {
+            transform: scale(1.05);
+        }
+
+        /* خطوات التحميل */
+        .download-steps {
+            margin-bottom: 40px;
+        }
+
+        .download-steps h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .download-steps h2:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 100px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .step.active {
+            background: var(--card-bg-hover);
+            border: 1px solid rgba(30, 136, 229, 0.5);
+        }
+
+        .step-number {
+            background: var(--primary);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-left: 15px;
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(30, 136, 229, 0.4);
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .step-content h3 i {
+            margin-left: 8px;
+            color: var(--primary);
+        }
+
+        .step-content p {
+            color: var(--lighter);
+            margin-bottom: 15px;
+        }
+
+        /* حالة الاشتراك */
+        .subscription-status {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            color: var(--success);
+            font-weight: bold;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .status-check {
+            background: var(--success);
+            color: var(--white);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 8px;
+            font-size: 14px;
+        }
+
+        /* الأزرار */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 25px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            text-align: center;
+            font-family: 'Tajawal', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn i {
+            margin-left: 8px;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .subscribe-btn {
+            background: var(--danger);
+        }
+
+        .subscribe-btn:hover {
+            background: var(--danger-dark);
+        }
+
+        .confirm-btn {
+            background: var(--success);
+        }
+
+        .confirm-btn:hover {
+            background: var(--success-dark);
+        }
+
+        .download-btn {
+            background: var(--secondary);
+            font-size: 18px;
+            padding: 15px 30px;
+        }
+
+        .download-btn:hover {
+            background: var(--secondary-dark);
+        }
+
+        .secondary-btn {
+            background: #757575;
+        }
+
+        .secondary-btn:hover {
+            background: #616161;
+        }
+
+        /* الميزات */
+        .features {
+            margin-bottom: 30px;
+        }
+
+        .features h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .features h2:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 100px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .feature {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            background: var(--card-bg-hover);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            display: block;
+            color: var(--primary);
+        }
+
+        .feature h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: var(--lighter);
+            font-size: 14px;
+        }
+
+        /* النافذة المنبثقة */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--dark);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: modalAppear 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-content h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content h3 i {
+            margin-left: 10px;
+            color: var(--danger);
+        }
+
+        .modal-content p {
+            color: var(--lighter);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+            max-width: 150px;
+        }
+
+        /* إعلان Google AdSense */
+        .ad-section {
+            margin: 20px 0;
+            text-align: center;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* الأنيميشن */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideDown {
+            from { transform: translate(-50%, -100%); opacity: 0; }
+            to { transform: translate(-50%, 0); opacity: 1; }
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+
+        /* رسالة النجاح */
+        .success-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success);
+            color: var(--white);
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 1001;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s ease;
+        }
+
+        /* تأثير الريبل على الأزرار */
+        .btn:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        /* التجاوب مع الشاشات المختلفة */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 26px;
+            }
+            
+            .version-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .info-item {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .step {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .step-number {
+                margin-left: 0;
+                margin-bottom: 15px;
+            }
+            
+            .screenshots-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .modal-actions .btn {
+                max-width: 100%;
+            }
+        }
+
+        /* شريط التقدم */
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* تحسينات إضافية */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(30, 136, 229, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(30, 136, 229, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(30, 136, 229, 0);
+            }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <!-- رأس الصفحة -->
         <header>
-            <div class="app-icon">
+            <div class="app-icon floating">
                 <img src="assets/logo.png" alt="أيقونة دليل الصيد الليبي">
             </div>
             <h1>دليل الصيد الليبي</h1>
@@ -47,7 +716,7 @@
         </section>
 
         <!-- إعلان Google AdSense -->
-        <section class="ad-section" style="margin: 20px 0; text-align: center;">
+        <section class="ad-section">
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7491540718203710"
                     crossorigin="anonymous"></script>
             <!-- 12 -->
@@ -87,10 +756,10 @@
             <div class="step" id="step1">
                 <div class="step-number">1</div>
                 <div class="step-content">
-                    <h3>اشترك في قناتنا على يوتيوب</h3>
+                    <h3><i class="fab fa-youtube"></i> اشترك في قناتنا على يوتيوب</h3>
                     <p>للحصول على آخر التحديثات والنصائح حول الصيد</p>
-                    <button class="btn subscribe-btn" id="subscribeBtn">
-                        اشترك في القناة
+                    <button class="btn subscribe-btn pulse" id="subscribeBtn">
+                        <i class="fab fa-youtube"></i> اشترك في القناة
                     </button>
                     <div class="subscription-status" id="subscriptionStatus" style="display: none;">
                         <span class="status-check">✓</span>
@@ -102,10 +771,10 @@
             <div class="step" id="step2" style="display: none;">
                 <div class="step-number">2</div>
                 <div class="step-content">
-                    <h3>تأكيد الاشتراك</h3>
+                    <h3><i class="fas fa-download"></i> تأكيد الاشتراك</h3>
                     <p>تم التحقق من اشتراكك، يمكنك الآن تحميل التطبيق</p>
                     <button class="btn download-btn" id="downloadBtn">
-                        تحميل الآن
+                        <i class="fas fa-download"></i> تحميل الآن
                     </button>
                 </div>
             </div>
@@ -116,22 +785,22 @@
             <h2>الميزات الرئيسية</h2>
             <div class="features-grid">
                 <div class="feature">
-                    <span class="feature-icon">🌐</span>
+                    <span class="feature-icon"><i class="fas fa-map-marked-alt"></i></span>
                     <h3>خرائط أماكن الصيد</h3>
                     <p>قاعدة بيانات محدثة بأفضل مواقع الصيد على طول الساحل الليبي</p>
                 </div>
                 <div class="feature">
-                    <span class="feature-icon">🎣</span>
+                    <span class="feature-icon"><i class="fas fa-fish"></i></span>
                     <h3>دليل الأسماك المحلية</h3>
                     <p>تعرف على أنواع الأسماك الشائعة في ليبيا ومواسم ظهورها</p>
                 </div>
                 <div class="feature">
-                    <span class="feature-icon">🌦️</span>
+                    <span class="feature-icon"><i class="fas fa-cloud-sun"></i></span>
                     <h3>توقعات الطقس البحري</h3>
                     <p>معلومات مباشرة عن حالة البحر، سرعة الرياح، ودرجة الحرارة</p>
                 </div>
                 <div class="feature">
-                    <span class="feature-icon">🌊</span>
+                    <span class="feature-icon"><i class="fas fa-water"></i></span>
                     <h3>مواعيد المد والجزر</h3>
                     <p>جدول دقيق لفترات المد والجزر التي تؤثر على نشاط الأسماك</p>
                 </div>
@@ -142,15 +811,218 @@
     <!-- نافذة التأكيد -->
     <div class="modal" id="confirmationModal">
         <div class="modal-content">
-            <h3>تأكيد الاشتراك</h3>
+            <h3><i class="fab fa-youtube"></i> تأكيد الاشتراك</h3>
             <p>يرجى الانتقال إلى قناتنا على يوتيوب والاشتراك، ثم العودة إلى هذه الصفحة والضغط على زر التأكيد.</p>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
             <div class="modal-actions">
-                <button class="btn secondary-btn" id="cancelBtn">إلغاء</button>
-                <button class="btn confirm-btn" id="confirmBtn">لقد اشتركت</button>
+                <button class="btn secondary-btn" id="cancelBtn">
+                    <i class="fas fa-times"></i> إلغاء
+                </button>
+                <button class="btn confirm-btn" id="confirmBtn">
+                    <i class="fas fa-check"></i> لقد اشتركت
+                </button>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // تكوين Supabase
+        const SUPABASE_URL = 'https://hzznfexratskutwppdol.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6em5mZXhyYXRza3V0d3BwZG9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0MzY4NzAsImV4cCI6MjA3MzAxMjg3MH0.Ui3semM9P8-p8GMEgiVXPcdtFEJ6GncIcUY0coyZClE';
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // المتغيرات العامة
+        let appVersion = {
+            version: "1.0.0",
+            update_date: "2024-01-01",
+            file_size: "45 MB",
+            download_url: "https://example.com/app.apk" // استبدل برابط APK الفعلي
+        };
+
+        // تهيئة الصفحة عند التحميل
+        document.addEventListener('DOMContentLoaded', function () {
+            loadAppInfo();
+            setupEventListeners();
+            checkSubscriptionStatus();
+        });
+
+        // تحميل معلومات التطبيق من قاعدة البيانات
+        async function loadAppInfo() {
+            try {
+                // جلب آخر إصدار
+                const { data: versionData, error: versionError } = await supabase
+                    .from('app_versions')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(1);
+
+                if (!versionError && versionData.length > 0) {
+                    appVersion = versionData[0];
+                    document.getElementById('versionNumber').textContent = appVersion.version;
+                    document.getElementById('updateDate').textContent = appVersion.update_date;
+                    document.getElementById('fileSize').textContent = appVersion.file_size;
+                }
+
+                // جلب عدد التحميلات للإصدار الحالي
+                const { data: countData, error: downloadError } = await supabase
+                    .from('download_counts')
+                    .select('count')
+                    .eq('version', appVersion.version)
+                    .single();
+
+                if (!downloadError && countData) {
+                    document.getElementById('downloadCount').textContent = countData.count;
+                } else {
+                    document.getElementById('downloadCount').textContent = '0';
+                }
+
+            } catch (error) {
+                console.error('خطأ في تحميل معلومات التطبيق:', error);
+            }
+        }
+
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            document.getElementById('subscribeBtn').addEventListener('click', openSubscriptionModal);
+            document.getElementById('confirmBtn').addEventListener('click', confirmSubscription);
+            document.getElementById('cancelBtn').addEventListener('click', closeSubscriptionModal);
+            document.getElementById('downloadBtn').addEventListener('click', downloadApp);
+        }
+
+        function openSubscriptionModal() {
+            document.getElementById('confirmationModal').classList.add('active');
+
+            const channelId = "UCY1cREXhxupNmNPHbX6ESMg";
+            const youtubeAppUrl = "vnd.youtube://channel/" + channelId;
+            const youtubeWebUrl = "https://www.youtube.com/channel/" + channelId + "?sub_confirmation=1";
+
+            // نجرب نفتح التطبيق
+            const now = Date.now();
+            window.location.href = youtubeAppUrl;
+
+            // بعد 1.5 ثانية لو التطبيق ما فتحش → نفتح الرابط العادي
+            setTimeout(() => {
+                if (Date.now() - now < 2000) {
+                    window.location.href = youtubeWebUrl;
+                }
+            }, 1500);
+
+            // تعطيل زر التأكيد مؤقتاً
+            const confirmBtn = document.getElementById('confirmBtn');
+            confirmBtn.disabled = true;
+            confirmBtn.textContent = "انتظر...";
+
+            // شريط التقدم
+            const progressBar = document.getElementById('progressBar');
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 1;
+                progressBar.style.width = `${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    confirmBtn.disabled = false;
+                    confirmBtn.innerHTML = '<i class="fas fa-check"></i> أنا اشتركت';
+                }
+            }, 200);
+        }
+
+        // إغلاق نافذة الاشتراك
+        function closeSubscriptionModal() {
+            document.getElementById('confirmationModal').classList.remove('active');
+        }
+
+        // تأكيد الاشتراك
+        function confirmSubscription() {
+            localStorage.setItem('youtube_subscribed', 'true');
+            localStorage.setItem('subscription_date', new Date().toISOString());
+            closeSubscriptionModal();
+            activateDownload();
+            showSuccessMessage('تم تأكيد الاشتراك بنجاح! يمكنك الآن تحميل التطبيق.');
+        }
+
+        // التحقق من حالة الاشتراك
+        function checkSubscriptionStatus() {
+            if (localStorage.getItem('youtube_subscribed') === 'true') {
+                activateDownload();
+            }
+        }
+
+        // تفعيل زر التحميل
+        function activateDownload() {
+            document.getElementById('subscriptionStatus').style.display = 'flex';
+            document.getElementById('subscribeBtn').style.display = 'none';
+            document.getElementById('step2').style.display = 'flex';
+            document.getElementById('step2').classList.add('active');
+        }
+
+        // تنزيل التطبيق
+        async function downloadApp() {
+            try {
+                const version = appVersion.version;
+
+                // جلب العداد الحالي للإصدار
+                const { data: existing, error: fetchError } = await supabase
+                    .from('download_counts')
+                    .select('count')
+                    .eq('version', version)
+                    .single();
+
+                let newCount = 1;
+
+                if (!fetchError && existing) {
+                    // العداد موجود → نزيده
+                    newCount = existing.count + 1;
+                    const { error: updateError } = await supabase
+                        .from('download_counts')
+                        .update({ count: newCount })
+                        .eq('version', version);
+
+                    if (updateError) throw updateError;
+                } else {
+                    // العداد غير موجود → نُدخله لأول مرة
+                    const { error: insertError } = await supabase
+                        .from('download_counts')
+                        .insert({ version, count: 1 });
+
+                    if (insertError) throw insertError;
+                }
+
+                // تحديث العرض
+                document.getElementById('downloadCount').textContent = newCount;
+
+                // بدء التحميل
+                startDirectDownload();
+            } catch (error) {
+                console.error('خطأ في تحديث عدد التنزيلات:', error);
+                alert('حدث خطأ أثناء تسجيل التنزيل. يرجى المحاولة لاحقًا.');
+            }
+        }
+
+        // بدء التحميل المباشر
+        function startDirectDownload() {
+            const link = document.createElement('a');
+            link.href = appVersion.download_url;
+            link.download = `دليل_الصيد_الليبي_${appVersion.version}.apk`;
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showSuccessMessage('بدأ تحميل التطبيق! إذا لم يبدأ التحميل تحقق من نافذة التنزيلات.');
+        }
+
+        // رسالة نجاح
+        function showSuccessMessage(message) {
+            const messageElement = document.createElement('div');
+            messageElement.className = 'success-message';
+            messageElement.textContent = message;
+            document.body.appendChild(messageElement);
+            setTimeout(() => messageElement.remove(), 3000);
+        }
+    </script>
 </body>
 </html>
