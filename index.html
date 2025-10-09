@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل الصيد الليبي - التحميل</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7491540718203710"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- رأس الصفحة -->
+        <header>
+            <div class="app-icon">
+                <img src="assets/logo.png" alt="أيقونة دليل الصيد الليبي">
+            </div>
+            <h1>دليل الصيد الليبي</h1>
+            <p class="app-description">دليل إلكتروني شامل ومتكامل لكل صياد ليبي</p>
+        </header>
+
+        <!-- معلومات الإصدار -->
+        <section class="version-info">
+            <div class="info-item">
+                <span class="label">رقم الإصدار:</span>
+                <span class="value" id="versionNumber">1.0.0</span>
+            </div>
+            <div class="info-item">
+                <span class="label">تاريخ التحديث:</span>
+                <span class="value" id="updateDate">2024-01-01</span>
+            </div>
+            <div class="info-item">
+                <span class="label">حجم الملف:</span>
+                <span class="value" id="fileSize">45 MB</span>
+            </div>
+            <div class="info-item">
+                <span class="label">عدد التحميلات:</span>
+                <span class="value" id="downloadCount">0</span>
+            </div>
+        </section>
+
+        <!-- وصف التطبيق -->
+        <section class="app-description-section">
+            <h2>عن التطبيق</h2>
+            <p>دليل الصيد الليبي هو تطبيق شامل ومتكامل لكل صياد ليبي، سواء كان هاوٍ أو محترفًا، يهدف إلى تحسين تجربة الصيد البحرية في السواحل الليبية من خلال توفير معلومات دقيقة، محلية، وسهلة الاستخدام.</p>
+        </section>
+
+        <!-- إعلان Google AdSense -->
+        <section class="ad-section" style="margin: 20px 0; text-align: center;">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7491540718203710"
+                    crossorigin="anonymous"></script>
+            <!-- 12 -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-7491540718203710"
+                 data-ad-slot="2338413054"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </section>
+
+        <!-- معرض صور التطبيق -->
+        <section class="screenshots">
+            <h2>لقطات من التطبيق</h2>
+            <div class="screenshots-container">
+                <div class="screenshot">
+                    <img src="assets/screenshot1.jpg" alt="لقطة شاشة 1">
+                </div>
+                <div class="screenshot">
+                    <img src="assets/screenshot2.jpg" alt="لقطة شاشة 2">
+                </div>
+                <div class="screenshot">
+                    <img src="assets/screenshot3.jpg" alt="لقطة شاشة 3">
+                </div>
+                <div class="screenshot">
+                    <img src="assets/screenshot4.jpg" alt="لقطة شاشة 4">
+                </div>
+            </div>
+        </section>
+
+        <!-- خطوات التحميل -->
+        <section class="download-steps">
+            <h2>خطوات التحميل</h2>
+            <div class="step" id="step1">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>اشترك في قناتنا على يوتيوب</h3>
+                    <p>للحصول على آخر التحديثات والنصائح حول الصيد</p>
+                    <button class="btn subscribe-btn" id="subscribeBtn">
+                        اشترك في القناة
+                    </button>
+                    <div class="subscription-status" id="subscriptionStatus" style="display: none;">
+                        <span class="status-check">✓</span>
+                        <span>تم الاشتراك بنجاح!</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step" id="step2" style="display: none;">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>تأكيد الاشتراك</h3>
+                    <p>تم التحقق من اشتراكك، يمكنك الآن تحميل التطبيق</p>
+                    <button class="btn download-btn" id="downloadBtn">
+                        تحميل الآن
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ميزات التطبيق -->
+        <section class="features">
+            <h2>الميزات الرئيسية</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <span class="feature-icon">🌐</span>
+                    <h3>خرائط أماكن الصيد</h3>
+                    <p>قاعدة بيانات محدثة بأفضل مواقع الصيد على طول الساحل الليبي</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🎣</span>
+                    <h3>دليل الأسماك المحلية</h3>
+                    <p>تعرف على أنواع الأسماك الشائعة في ليبيا ومواسم ظهورها</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🌦️</span>
+                    <h3>توقعات الطقس البحري</h3>
+                    <p>معلومات مباشرة عن حالة البحر، سرعة الرياح، ودرجة الحرارة</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🌊</span>
+                    <h3>مواعيد المد والجزر</h3>
+                    <p>جدول دقيق لفترات المد والجزر التي تؤثر على نشاط الأسماك</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- نافذة التأكيد -->
+    <div class="modal" id="confirmationModal">
+        <div class="modal-content">
+            <h3>تأكيد الاشتراك</h3>
+            <p>يرجى الانتقال إلى قناتنا على يوتيوب والاشتراك، ثم العودة إلى هذه الصفحة والضغط على زر التأكيد.</p>
+            <div class="modal-actions">
+                <button class="btn secondary-btn" id="cancelBtn">إلغاء</button>
+                <button class="btn confirm-btn" id="confirmBtn">لقد اشتركت</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
