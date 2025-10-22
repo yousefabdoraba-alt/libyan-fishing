@@ -1,0 +1,83 @@
+/* المتغيرات العامة */
+:root {
+    --primary: #1976f3;
+    --primary-dark: #0d5db6;
+    --accent: #003366;
+    --bg: #f8f9fc;
+    --card-bg: #ffffff;
+    --text: #222;
+    --sub-text: #666;
+    --border: #ddd;
+    --shadow: rgba(0, 0, 0, 0.08);
+    --shadow-hover: rgba(0, 0, 0, 0.12);
+    --radius: 16px;
+    --transition: all .28s ease;
+}
+
+body.dark-mode {
+    --bg: #0f1724;
+    --card-bg: #0b1220;
+    --text: #e6eef8;
+    --sub-text: #aab6d1;
+    --border: #1f2937;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --shadow-hover: rgba(0, 0, 0, 0.6);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: "Tajawal", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: var(--transition);
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* أنماط الصفحات العامة */
+.page-content {
+    min-height: calc(100vh - 140px);
+    padding: 20px 0;
+}
+
+/* responsive */
+@media (max-width: 900px) {
+    .hero h2 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width:768px) {
+    .logo-text {
+        display: none;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .hamburger-btn {
+        display: flex;
+    }
+
+    .header-container {
+        gap: .6rem;
+    }
+}
