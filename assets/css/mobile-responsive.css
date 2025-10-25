@@ -1,0 +1,570 @@
+/* mobile-responsive.css - تحسينات متجاوبة للهواتف */
+@media (max-width: 768px) {
+    /* تحسينات عامة */
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    /* تحسين الهيدر للهواتف */
+    .custom-header {
+        padding: 10px 0;
+    }
+
+    .header-container {
+        padding: 0 15px;
+    }
+
+    .logo-section {
+        flex: 1;
+    }
+
+    .logo-text {
+        font-size: 16px;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .header-actions {
+        gap: 10px;
+    }
+
+    .cart-icon, .user-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .cart-badge {
+        width: 18px;
+        height: 18px;
+        font-size: 10px;
+    }
+
+    .hamburger-btn {
+        display: flex;
+    }
+
+    /* السايدبار للهواتف */
+    .sidebar-menu {
+        width: 85%;
+        right: -85%;
+    }
+
+    .sidebar-menu.active {
+        right: 0;
+    }
+
+    .close-btn {
+        padding: 15px;
+    }
+
+    .sidebar-link {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+
+    .sidebar-submenu {
+        padding-right: 30px;
+    }
+
+    /* نافذة المستخدم للهواتف */
+    .user-modal-content {
+        margin: 20px;
+        width: calc(100% - 40px);
+        max-height: calc(100vh - 40px);
+    }
+
+    .user-avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .user-name {
+        font-size: 18px;
+    }
+
+    .user-actions {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .user-action-btn {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    /* نافذة السلة للهواتف */
+    .cart-modal-content {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+
+    .cart-modal-header {
+        padding: 15px;
+    }
+
+    .cart-items {
+        max-height: 50vh;
+    }
+
+    .cart-item {
+        padding: 12px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .cart-item-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .cart-item-details {
+        flex: 1;
+        text-align: center;
+    }
+
+    .cart-item-controls {
+        justify-content: center;
+    }
+
+    .cart-summary {
+        padding: 15px;
+    }
+
+    .cart-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .cart-action-btn {
+        padding: 12px;
+    }
+
+    /* صفحة إدارة المتجر - تحسينات خاصة */
+    .store-management-page {
+        padding: 80px 0 20px;
+    }
+
+    .page-header h1 {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .page-header p {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    /* علامات التبويب للهواتف */
+    .management-tabs {
+        margin-bottom: 20px;
+    }
+
+    .tabs-header {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        gap: 5px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .tabs-header::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab-btn {
+        padding: 12px 15px;
+        font-size: 14px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        min-width: auto;
+    }
+
+    .tab-btn .badge {
+        top: 5px;
+        left: 5px;
+        font-size: 9px;
+        padding: 1px 4px;
+        min-width: 16px;
+    }
+
+    /* الإحصائيات للهواتف */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .stat-card {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .stat-value {
+        font-size: 22px;
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        font-size: 12px;
+    }
+
+    /* أقسام الإدارة */
+    .management-section {
+        padding: 20px 15px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .section-title {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    /* النماذج للهواتف */
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        padding: 12px;
+        font-size: 16px; /* منع التكبير في iOS */
+    }
+
+    /* جدول المنتجات للهواتف */
+    .products-table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .products-table {
+        min-width: 600px;
+    }
+
+    .products-table th,
+    .products-table td {
+        padding: 10px 8px;
+        font-size: 14px;
+    }
+
+    .product-image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .action-btn {
+        padding: 6px 8px;
+        font-size: 11px;
+    }
+
+    /* شبكة المنتجات للهواتف */
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .product-card {
+        margin-bottom: 0;
+    }
+
+    .product-card-image {
+        height: 180px;
+    }
+
+    .product-card-content {
+        padding: 15px;
+    }
+
+    .product-card-title {
+        font-size: 16px;
+    }
+
+    .product-card-description {
+        font-size: 13px;
+    }
+
+    .product-card-price {
+        font-size: 18px;
+    }
+
+    .product-card-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* النوافذ المنبثقة للهواتف */
+    .modal {
+        margin: 10px;
+        padding: 20px;
+        width: calc(100% - 20px);
+        max-height: calc(100vh - 20px);
+    }
+
+    .modal-header {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+    }
+
+    .modal-title {
+        font-size: 20px;
+    }
+
+    /* معاينة الصور للهواتف */
+    .image-previews {
+        gap: 8px;
+    }
+
+    .preview-item {
+        width: 80px;
+        height: 80px;
+    }
+
+    /* خيارات الألوان والأيقونات */
+    .color-options, .icon-options {
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .color-option {
+        width: 35px;
+        height: 35px;
+    }
+
+    .icon-option {
+        width: 45px;
+        height: 45px;
+    }
+
+    /* حالة عدم وجود بيانات */
+    .no-data {
+        padding: 40px 20px;
+    }
+
+    .no-data i {
+        font-size: 48px;
+        margin-bottom: 15px;
+    }
+
+    .no-data h3 {
+        font-size: 18px;
+    }
+
+    .no-data p {
+        font-size: 14px;
+    }
+
+    /* البحث والتصفية */
+    .search-box {
+        max-width: 100%;
+    }
+
+    .search-box input {
+        padding-right: 40px;
+    }
+
+    /* أزرار الهواتف */
+    .btn {
+        padding: 12px 16px;
+        font-size: 14px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* تحسينات خاصة للشحن والتوصيل */
+    .shipping-methods {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .method-tag {
+        text-align: center;
+        padding: 10px;
+    }
+
+    /* تحسينات للقوائم */
+    .categories-list {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .category-item {
+        padding: 15px;
+    }
+
+    .category-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    /* تحسينات للطلبات */
+    .order-card {
+        padding: 15px;
+    }
+
+    .order-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .order-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .order-actions select {
+        width: 100%;
+    }
+}
+
+/* تحسينات إضافية للشاشات الصغيرة جداً */
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tab-btn {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .management-section {
+        padding: 15px 12px;
+    }
+
+    .product-card-image {
+        height: 160px;
+    }
+
+    .modal {
+        margin: 5px;
+        padding: 15px;
+        width: calc(100% - 10px);
+    }
+
+    .user-modal-content {
+        margin: 10px;
+        width: calc(100% - 20px);
+    }
+}
+
+/* تحسينات للأجهزة التي تدعم Hover */
+@media (hover: hover) and (pointer: fine) {
+    .tab-btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .stat-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .product-card:hover {
+        transform: translateY(-3px);
+    }
+}
+
+/* تحسينات للأجهزة التي لا تدعم Hover */
+@media (hover: none) and (pointer: coarse) {
+    .tab-btn:active {
+        transform: scale(0.98);
+    }
+
+    .btn:active {
+        transform: scale(0.98);
+    }
+
+    .stat-card:active {
+        transform: scale(0.98);
+    }
+}
+
+/* تحسينات للوضع الداكن على الهواتف */
+@media (max-width: 768px) and (prefers-color-scheme: dark) {
+    .management-section {
+        background: var(--card-bg);
+        border-color: var(--border);
+    }
+
+    .stat-card {
+        background: var(--card-bg);
+    }
+
+    .product-card {
+        background: var(--card-bg);
+    }
+}
+
+/* تحسينات للأيقونات على الهواتف */
+.mobile-icon {
+    font-size: 1.2em;
+}
+
+/* تحسينات للتفاصيل على الهواتف */
+.details-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.detail-item {
+    padding: 10px;
+    text-align: center;
+}
+
+/* تحسينات للتحميل على الهواتف */
+.loading-spinner {
+    width: 30px;
+    height: 30px;
+}
+
+/* تحسينات للرسائل على الهواتف */
+.alert-message {
+    padding: 12px 15px;
+    font-size: 14px;
+    margin: 10px;
+    border-radius: 8px;
+}
+
+/* تحسينات للفورم على الهواتف */
+.form-actions {
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-actions .btn {
+    margin: 0;
+}

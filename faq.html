@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأسئلة الشائعة - دليل الصيد الليبي</title>
+    
+    <!-- خطوط وأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- الأنماط -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        /* أنماط الأسئلة الشائعة */
+        .faq-content {
+            padding: 80px 0 60px;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .faq-header h1 {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .faq-header p {
+            color: var(--sub-text);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--card-bg);
+            color: var(--text);
+            font-size: 16px;
+            font-family: "Tajawal", sans-serif;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(25, 118, 243, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--sub-text);
+        }
+
+        .faq-categories {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-btn {
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            padding: 12px 24px;
+            border-radius: var(--radius);
+            color: var(--text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: "Tajawal", sans-serif;
+        }
+
+        .category-btn.active,
+        .category-btn:hover {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .faq-section {
+            margin-bottom: 40px;
+        }
+
+        .faq-section h2 {
+            color: var(--accent);
+            font-size: 28px;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-section h2 i {
+            color: var(--primary);
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px var(--shadow);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow-hover);
+        }
+
+        .faq-question {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background: rgba(25, 118, 243, 0.05);
+        }
+
+        .faq-question i {
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+            color: var(--sub-text);
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 25px 25px;
+            max-height: 500px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--sub-text);
+            display: none;
+        }
+
+        .no-results i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: var(--border);
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 50px 0;
+        }
+
+        .action-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px var(--shadow-hover);
+        }
+
+        .action-card i {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .action-card h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .action-card p {
+            color: var(--sub-text);
+            margin-bottom: 15px;
+        }
+
+        .action-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 900px) {
+            .faq-header h1 {
+                font-size: 32px;
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width:768px) {
+            .faq-question {
+                padding: 15px 20px;
+                font-size: 16px;
+            }
+            
+            .faq-answer {
+                padding: 0 20px;
+            }
+            
+            .faq-item.active .faq-answer {
+                padding: 0 20px 20px;
+            }
+            
+            .category-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- سيتم تحميل الهيدر تلقائياً هنا -->
+    <div id="header-container"></div>
+
+    <!-- محتوى الصفحة -->
+    <main class="page-content">
+        <div class="container">
+            <section class="faq-content">
+                <div class="faq-header">
+                    <h1>الأسئلة الشائعة</h1>
+                    <p>ابحث عن إجابات للأسئلة الأكثر شيوعاً حول تطبيق دليل الصيد الليبي</p>
+                </div>
+
+                <!-- صندوق البحث -->
+                <div class="search-box">
+                    <input type="text" id="faq-search" placeholder="ابحث في الأسئلة الشائعة...">
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <!-- التصنيفات -->
+                <div class="faq-categories">
+                    <button class="category-btn active" data-category="all">الكل</button>
+                    <button class="category-btn" data-category="general">عام</button>
+                    <button class="category-btn" data-category="technical">فني</button>
+                    <button class="category-btn" data-category="fishing">الصيد</button>
+                    <button class="category-btn" data-category="account">الحساب</button>
+                    <button class="category-btn" data-category="payment">الدفع</button>
+                </div>
+
+                <!-- رسالة عدم وجود نتائج -->
+                <div class="no-results" id="no-results">
+                    <i class="fas fa-search"></i>
+                    <h3>لم نعثر على نتائج</h3>
+                    <p>جرب استخدام كلمات بحث مختلفة أو تصفح التصنيفات</p>
+                </div>
+
+                <!-- إجراءات سريعة -->
+                <div class="quick-actions">
+                    <div class="action-card">
+                        <i class="fas fa-download"></i>
+                        <h3>تحميل التطبيق</h3>
+                        <p>حمّل التطبيق الآن واستمتع بجميع الميزات</p>
+                        <a href="index.html#download" class="action-btn">تحميل الآن</a>
+                    </div>
+                    <div class="action-card">
+                        <i class="fas fa-headset"></i>
+                        <h3>الدعم الفني</h3>
+                        <p>تواصل مع فريق الدعم لحل أي مشكلة تواجهك</p>
+                        <a href="#contact" class="action-btn">اتصل بنا</a>
+                    </div>
+                    <div class="action-card">
+                        <i class="fas fa-video"></i>
+                        <h3>فيديو تعريفي</h3>
+                        <p>شاهد فيديو تعريفي عن كيفية استخدام التطبيق</p>
+                        <a href="#" class="action-btn">شاهد الفيديو</a>
+                    </div>
+                </div>
+
+                <!-- قسم الأسئلة العامة -->
+                <div class="faq-section" data-category="general">
+                    <h2><i class="fas fa-info-circle"></i> أسئلة عامة</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            ما هو تطبيق دليل الصيد الليبي؟
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>تطبيق دليل الصيد الليبي هو تطبيق متكامل يخدم مجتمع الصيادين في ليبيا. يوفر التطبيق مجموعة من الميزات المتقدمة مثل:</p>
+                            <ul>
+                                <li>خرائط أماكن الصيد التفصيلية</li>
+                                <li>توقعات الطقس والمد والجزر</li>
+                                <li>دليل شامل لأنواع الأسماك والطعوم</li>
+                                <li>أدوات الغطس الحر وتدريبات كتم النفس</li>
+                                <li>مجتمع تفاعلي للصيادين</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            هل التطبيق مجاني؟
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>نعم، التطبيق مجاني بالكامل مع إمكانية الترقية لنسخة مميزة تشمل:</p>
+                            <ul>
+                                <li>ميزات متقدمة للطقس والمد والجزر</li>
+                                <li>تحليلات مفصلة لرحلات الصيد</li>
+                                <li>دعم فني متميز</li>
+                                <li>إشعارات مخصصة</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            ما هي متطلبات تشغيل التطبيق؟
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>متطلبات التشغيل الأساسية:</p>
+                            <ul>
+                                <li>أندرويد 8.0 أو أحدث / iOS 13 أو أحدث</li>
+                                <li>مساحة تخزين 50 ميجابايت على الأقل</li>
+                                <li>اتصال إنترنت للوصول لمعظم الميزات</li>
+                                <li>تفعيل خدمة الموقع (GPS) للميزات المتعلقة بالخرائط</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- قسم الأسئلة الفنية -->
+                <div class="faq-section" data-category="technical">
+                    <h2><i class="fas fa-cogs"></i> أسئلة فنية</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            التطبيق لا يعمل بشكل صحيح، ماذا أفعل؟
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>إذا واجهتك أي مشاكل فنية، جرب الخطوات التالية:</p>
+                            <ol>
+                                <li>أغلق التطبيق تماماً وأعد فتحه</li>
+                                <li>تأكد من تحديث التطبيق لأحدث نسخة</li>
+                                <li>افحص اتصال الإنترنت لديك</li>
+                                <li>امسح ذاكرة التخزين المؤقت للتطبيق</li>
+                                <li>أعد تثبيت التطبيق إذا استمرت المشكلة</li>
+                            </ol>
+                            <p>إذا لم تحل المشكلة، تواصل مع الدعم الفني.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            كيف أحدث التطبيق؟
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>للتحديث على أندرويد:</p>
+                            <ul>
+                                <li>افتح متجر Google Play</li>
+                                <li>ابحث عن "دليل الصيد الليبي"</li>
+                                <li>انقر على "تحديث" إذا كان متاحاً</li>
+                            </ul>
+                            <p>للتحديث على iOS:</p>
+                            <ul>
+                                <li>افتح متجر App Store</li>
+                                <li>انقر على صورة حسابك</li>
+                                <li>ابحث عن التطبيق وانقر على "تحديث"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- قسم أسئلة الصيد -->
+                <div class="faq-section" data-category="fishing">
+                    <h2><i class="fas fa-fish"></i> أسئلة الصيد</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            كيف أضيف موقع صيد جديد؟
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>لإضافة موقع صيد جديد:</p>
+                            <ol>
+                                <li>افتح قسم "أماكن الصيد"</li>
+                                <li>انقر على زر "إضافة موقع جديد"</li>
+                                <li>حدد الموقع على الخريطة</li>
+                                <li>أضف معلومات الموقع (الاسم، الوصف، نوع الصيد)</li>
+                                <li>احفظ الموقع واضفه لمفضلتك</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            كيف أستخدم ميزة تحليل الطلعة؟
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>ميزة تحليل الطلعة تساعدك في تحديد أفضل أوقات الصيد:</p>
+                            <ul>
+                                <li>افتح قسم "تحليل الطلعة"</li>
+                                <li>سيحدد التطبيق موقعك تلقائياً</li>
+                                <li>سيحلل الظروف الجوية والمد والجزر</li>
+                                <li>سيقدم لك تقريراً مفصلاً بأفضل أوقات الصيد</li>
+                                <li>ستحصل على نصائح مخصصة حسب الموقع والوقت</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- قسم أسئلة الحساب -->
+                <div class="faq-section" data-category="account">
+                    <h2><i class="fas fa-user-circle"></i> أسئلة الحساب</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            كيف أنشئ حساباً جديداً؟
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>لإنشاء حساب جديد:</p>
+                            <ol>
+                                <li>افتح التطبيق وانقر على "إنشاء حساب"</li>
+                                <li>أدخل بريدك الإلكتروني وكلمة المرور</li>
+                                <li>أدخل معلوماتك الشخصية (الاسم، المدينة)</li>
+                                <li>اقرأ وشروط الخصوصية ووافق عليها</li>
+                                <li>انقر على "إنشاء حساب"</li>
+                                <li>ستصلك رسالة تأكيد على بريدك الإلكتروني</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            نسيت كلمة المرور، كيف أستعيدها؟
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>لا تقلق، يمكنك استعادة كلمة المرور بسهولة:</p>
+                            <ol>
+                                <li>انقر على "نسيت كلمة المرور" في شاشة تسجيل الدخول</li>
+                                <li>أدخل بريدك الإلكتروني المسجل</li>
+                                <li>افتح بريدك الإلكتروني وانقر على رابط إعادة التعيين</li>
+                                <li>أنشئ كلمة مرور جديدة</li>
+                                <li>سجل الدخول باستخدام كلمة المرور الجديدة</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- قسم الاتصال -->
+                <div id="contact-section"></div>
+
+                <div style="display: flex; gap: 15px; margin-top: 40px; flex-wrap: wrap; justify-content: center;">
+                    <a href="index.html" class="back-btn">
+                        <i class="fas fa-arrow-right"></i>
+                        العودة إلى الصفحة الرئيسية
+                    </a>
+                    <a href="privacy-policy.html" class="back-btn" style="background: linear-gradient(135deg, #666, #999);">
+                        <i class="fas fa-shield-alt"></i>
+                        سياسة الخصوصية
+                    </a>
+                    <a href="terms.html" class="back-btn" style="background: linear-gradient(135deg, #ff9800, #f57c00);">
+                        <i class="fas fa-file-contract"></i>
+                        الشروط والأحكام
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- سيتم تحميل الفوتر تلقائياً هنا -->
+    <div id="footer-container"></div>
+
+    <!-- السكريبتات -->
+    <script src="shared/config.js"></script>
+    <script src="assets/js/main.js"></script>
+    
+    <script>
+        // كود خاص بصفحة الأسئلة الشائعة
+        document.addEventListener('DOMContentLoaded', function() {
+            // تفعيل/إلغاء تفعيل الأسئلة
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+
+            // البحث في الأسئلة
+            const searchInput = document.getElementById('faq-search');
+            const noResults = document.getElementById('no-results');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                let foundResults = false;
+                
+                faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                    const parentSection = item.closest('.faq-section');
+                    
+                    if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        parentSection.style.display = 'block';
+                        foundResults = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // إظهار/إخفاء رسالة عدم وجود نتائج
+                noResults.style.display = foundResults ? 'none' : 'block';
+            });
+
+            // تصفية حسب التصنيف
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // إزالة النشط من جميع الأزرار
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    // إضافة النشط للزر المحدد
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    const faqSections = document.querySelectorAll('.faq-section');
+                    
+                    faqSections.forEach(section => {
+                        if (category === 'all' || section.getAttribute('data-category') === category) {
+                            section.style.display = 'block';
+                        } else {
+                            section.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

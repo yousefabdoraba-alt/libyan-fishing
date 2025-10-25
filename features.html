@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مميزات التطبيق - دليل الصيد الليبي</title>
+    
+    <!-- خطوط وأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- الأنماط -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        /* أنماط شاشة المميزات */
+        .features-main-content {
+            padding: 80px 0 60px;
+            background: linear-gradient(135deg, rgba(25, 118, 243, 0.02), rgba(0, 51, 102, 0.03));
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .features-header h1 {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-header p {
+            color: var(--sub-text);
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* فئات المميزات */
+        .category-section {
+            margin-bottom: 60px;
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: var(--radius);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .category-header h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .category-header p {
+            font-size: 16px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* شبكة المميزات */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px var(--shadow-hover);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            opacity: 0.9;
+        }
+
+        .feature-icon i {
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-card h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-card p {
+            color: var(--sub-text);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        /* قائمة المميزات الفرعية */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            color: var(--text);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* ألوان متنوعة للأيقونات */
+        .icon-fishing { background: linear-gradient(135deg, #2196F3, #1976D2); }
+        .icon-diving { background: linear-gradient(135deg, #00BCD4, #0097A7); }
+        .icon-ai { background: linear-gradient(135deg, #9C27B0, #7B1FA2); }
+        .icon-weather { background: linear-gradient(135deg, #FF9800, #F57C00); }
+        .icon-fish { background: linear-gradient(135deg, #4CAF50, #2E7D32); }
+        .icon-tools { background: linear-gradient(135deg, #795548, #5D4037); }
+        .icon-prayer { background: linear-gradient(135deg, #607D8B, #455A64); }
+        .icon-tech { background: linear-gradient(135deg, #F44336, #D32F2F); }
+
+        /* قسم التقنيات */
+        .tech-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 40px;
+            margin: 60px 0;
+            box-shadow: 0 10px 30px var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .tech-item {
+            text-align: center;
+            padding: 20px;
+            background: rgba(25, 118, 243, 0.05);
+            border-radius: 10px;
+            border-right: 3px solid var(--primary);
+        }
+
+        .tech-item i {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .tech-item h4 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        /* قسم الهوية البصرية */
+        .brand-section {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: var(--radius);
+            padding: 40px;
+            margin: 60px 0;
+            color: white;
+            text-align: center;
+        }
+
+        .color-palette {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .color-item {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* أزرار التنقل */
+        .features-nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 25px;
+            background: var(--card-bg);
+            color: var(--text);
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid var(--border);
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(25, 118, 243, 0.3);
+        }
+
+        /* مؤشر التقدم */
+        .progress-indicator {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--border);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* تأثيرات خاصة */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* التجاوب */
+        @media (max-width: 768px) {
+            .features-header h1 {
+                font-size: 32px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-header h2 {
+                font-size: 24px;
+            }
+            
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .features-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .color-palette {
+                gap: 10px;
+            }
+            
+            .color-item {
+                width: 50px;
+                height: 50px;
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- مؤشر التقدم -->
+    <div class="progress-indicator">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- سيتم تحميل الهيدر تلقائياً هنا -->
+    <div id="header-container"></div>
+
+    <!-- محتوى الصفحة -->
+    <main class="page-content">
+        <div class="container">
+            <section class="features-main-content">
+                <!-- رأس الصفحة -->
+                <div class="features-header">
+                    <h1>مميزات التطبيق الشاملة</h1>
+                    <p>اكتشف عالم الصيد والغطس في ليبيا من خلال تطبيق متكامل يجمع بين الذكاء الاصطناعي والخبرة المحلية</p>
+                </div>
+
+                <!-- قسم الصيد التقليدي -->
+                <section class="category-section" id="fishing">
+                    <div class="category-header">
+                        <h2><i class="fas fa-fish"></i> قسم الصيد التقليدي</h2>
+                        <p>أدوات وخدمات متكاملة لتجربة صيد احترافية في المياه الليبية</p>
+                    </div>
+
+                    <div class="features-grid">
+                        <!-- متاجر الصيد -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-fishing">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <h3><i class="fas fa-store"></i> متاجر الصيد</h3>
+                            <p>دليل شامل لمتاجر أدوات الصيد في مختلف المدن الليبية</p>
+                            <ul class="feature-list">
+                                <li>البحث بالاسم أو المدينة</li>
+                                <li>عرض الموقع والتقييمات</li>
+                                <li>أرقام الهاتف للاتصال المباشر</li>
+                                <li>خرائط الوصول للمتاجر</li>
+                            </ul>
+                        </div>
+
+                        <!-- أماكن الصيد -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-fishing">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <h3><i class="fas fa-map-marked-alt"></i> أماكن الصيد</h3>
+                            <p>نظام تفاعلي متقدم لاكتشاف وحفظ مواقع الصيد المميزة</p>
+                            <ul class="feature-list">
+                                <li>تحديد المواقع على الخريطة</li>
+                                <li>حفظ الأماكن المفضلة</li>
+                                <li>دعم الخرائط العادية والأقمار الصناعية</li>
+                                <li>إضافة الوصف والملاحظات</li>
+                            </ul>
+                        </div>
+
+                        <!-- أيام الحمل والفساد -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-weather">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <h3><i class="fas fa-calendar-alt"></i> أيام الحمل والفساد</h3>
+                            <p>تحديد أفضل أوقات الصيد حسب نوعه ونشاط الأسماك</p>
+                            <ul class="feature-list">
+                                <li>جدول الأيام القادمة</li>
+                                <li>تمييز أيام الحمل (الصيد من الشاطئ)</li>
+                                <li>تمييز أيام الفساد (الصيد بالقارب)</li>
+                                <li>تواريخ هجرية وميلادية</li>
+                            </ul>
+                        </div>
+
+                        <!-- الطقس البحري -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-weather">
+                                <i class="fas fa-cloud-sun"></i>
+                            </div>
+                            <h3><i class="fas fa-cloud-sun"></i> الطقس البحري</h3>
+                            <p>بيانات دقيقة وشاملة عن حالة البحر والظروف الجوية</p>
+                            <ul class="feature-list">
+                                <li>درجة حرارة الجو والماء</li>
+                                <li>اتجاه وسرعة الرياح</li>
+                                <li>ارتفاع الأمواج والتيارات</li>
+                                <li>توقعات لأربعة أيام قادمة</li>
+                            </ul>
+                        </div>
+
+                        <!-- نشاط الأسماك -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-fish">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3><i class="fas fa-chart-line"></i> نشاط الأسماك</h3>
+                            <p>تحليل ذكي لحركة الأسماك بناءً على المد والجزر</p>
+                            <ul class="feature-list">
+                                <li>فترات النشاط اليومية</li>
+                                <li>رسم بياني تفاعلي</li>
+                                <li>تحديد أوقات الصيد المناسبة</li>
+                                <li>توقعات لثلاثة أيام قادمة</li>
+                            </ul>
+                        </div>
+
+                        <!-- المد والجزر -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-weather">
+                                <i class="fas fa-water"></i>
+                            </div>
+                            <h3><i class="fas fa-water"></i> المد والجزر</h3>
+                            <p>معلومات دقيقة عن حركة المد والجزر في السواحل الليبية</p>
+                            <ul class="feature-list">
+                                <li>أوقات المد العالي والجزر المنخفض</li>
+                                <li>عرض ارتفاع المياه بالأمتار</li>
+                                <li>رسم بياني يومي للتغيرات</li>
+                                <li>يعتمد على التقويم الهجري</li>
+                            </ul>
+                        </div>
+
+                        <!-- تتبع المواقع -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-tools">
+                                <i class="fas fa-location-arrow"></i>
+                            </div>
+                            <h3><i class="fas fa-location-arrow"></i> تتبع المواقع</h3>
+                            <p>نظام ملاحة متكامل للوصول لأماكن الصيد بدقة</p>
+                            <ul class="feature-list">
+                                <li>بوصلة ذكية للإتجاهات</li>
+                                <li>تتبع مباشر للموقع والمسافة</li>
+                                <li>حفظ المواقع المفضلة</li>
+                                <li>التوجيه للمواقع المحفوظة</li>
+                            </ul>
+                        </div>
+
+                        <!-- أنواع الأسماك -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-fish">
+                                <i class="fas fa-fish"></i>
+                            </div>
+                            <h3><i class="fas fa-fish"></i> أنواع الأسماك</h3>
+                            <p>موسوعة شاملة للأسماك المحلية في المياه الليبية</p>
+                            <ul class="feature-list">
+                                <li>معلومات وصور لأنواع الأسماك</li>
+                                <li>بحث متقدم بالاسم</li>
+                                <li>عمل دون اتصال بالإنترنت</li>
+                                <li>تحديثات مستمرة من السيرفر</li>
+                            </ul>
+                        </div>
+
+                        <!-- أنواع الطعوم -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-tools">
+                                <i class="fas fa-worm"></i>
+                            </div>
+                            <h3><i class="fas fa-worm"></i> أنواع الطعوم</h3>
+                            <p>دليل شامل لجميع أنواع الطعوم وطرق استخدامها</p>
+                            <ul class="feature-list">
+                                <li>شرح أنواع الطعوم المختلفة</li>
+                                <li>طرق الاستخدام المناسبة</li>
+                                <li>تقييمات من الصيادين</li>
+                                <li>مقارنة بين الطعوم</li>
+                            </ul>
+                        </div>
+
+                        <!-- معدات الصيد -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-tools">
+                                <i class="fas fa-toolbox"></i>
+                            </div>
+                            <h3><i class="fas fa-toolbox"></i> معدات الصيد</h3>
+                            <p>دليل متكامل لأدوات ومعدات الصيد الحديثة</p>
+                            <ul class="feature-list">
+                                <li>عرض المعدات المختلفة</li>
+                                <li>شرح طرق الاستخدام</li>
+                                <li>تقييمات وتعليقات</li>
+                                <li>مقارنات لتحديد الأنسب</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- قسم الذكاء الاصطناعي -->
+                <section class="category-section" id="ai">
+                    <div class="category-header">
+                        <h2><i class="fas fa-brain"></i> الذكاء الاصطناعي</h2>
+                        <p>تقنيات ذكية لتحليل البيانات وتقديم توصيات مخصصة</p>
+                    </div>
+
+                    <div class="features-grid">
+                        <!-- تعرف على السمكة -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-ai">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <h3><i class="fas fa-camera"></i> تعرف على السمكة</h3>
+                            <p>نظام ذكي للتعرف على أنواع الأسماك من خلال الصور</p>
+                            <ul class="feature-list">
+                                <li>رفع صورة السمكة</li>
+                                <li>تحليل تلقائي للنوع</li>
+                                <li>أسئلة جاهزة (سامة؟ أين تعيش؟)</li>
+                                <li>واجهة باللهجة الليبية</li>
+                            </ul>
+                        </div>
+
+                        <!-- تحليل طلعة الصيد -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-ai">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <h3><i class="fas fa-chart-bar"></i> تحليل طلعة الصيد</h3>
+                            <p>تحليل ذكي شامل لظروف الصيد المثالية</p>
+                            <ul class="feature-list">
+                                <li>اعتماد على الموقع والطقس</li>
+                                <li>تحليل القمر والمد والجزر</li>
+                                <li>اقتراح أنواع الأسماك المتوقعة</li>
+                                <li>عرض المواقع القريبة المناسبة</li>
+                            </ul>
+                        </div>
+
+                        <!-- يوميات الصياد -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-ai">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h3><i class="fas fa-book"></i> يوميات الصياد</h3>
+                            <p>سجل متكامل لرحلات الصيد وتجارب الصيادين</p>
+                            <ul class="feature-list">
+                                <li>تسجيل تفاصيل الرحلات</li>
+                                <li>رفع الصور عبر ImgBB</li>
+                                <li>إحصائيات ورسوم بيانية</li>
+                                <li>تصنيف وتنظيم الرحلات</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- قسم الغطس الحر -->
+                <section class="category-section" id="diving">
+                    <div class="category-header">
+                        <h2><i class="fas fa-water"></i> قسم الغطس الحر</h2>
+                        <p>أدوات متقدمة للغطاسين ومحبي الصيد بالرمح</p>
+                    </div>
+
+                    <div class="features-grid">
+                        <!-- DiveSense -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-diving">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3><i class="fas fa-search"></i> DiveSense - تحليل الطلعة</h3>
+                            <p>تحليل شامل لظروف الغطس باستخدام الذكاء الاصطناعي</p>
+                            <ul class="feature-list">
+                                <li>تحليل وضوح المياه والتيارات</li>
+                                <li>تقييم الرؤية ودرجة الحرارة</li>
+                                <li>اقتراح مواقع الغوص المناسبة</li>
+                                <li>نصائح أمان مفصلة</li>
+                            </ul>
+                        </div>
+
+                        <!-- تدريبات كتم النفس -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-diving">
+                                <i class="fas fa-lungs"></i>
+                            </div>
+                            <h3><i class="fas fa-lungs"></i> تدريبات كتم النفس</h3>
+                            <p>نظام متكامل لتطوير قدرة التحمل تحت الماء</p>
+                            <ul class="feature-list">
+                                <li>تدريبات CO₂ و O₂ المتقدمة</li>
+                                <li>عداد مرئي تفاعلي</li>
+                                <li>تتبع التقدم والإنجازات</li>
+                                <li>إحصائيات أداء مفصلة</li>
+                            </ul>
+                        </div>
+
+                        <!-- يوميات الغطاس -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-diving">
+                                <i class="fas fa-scroll"></i>
+                            </div>
+                            <h3><i class="fas fa-scroll"></i> يوميات الغطاس</h3>
+                            <p>سجل متكامل لرحلات الغطس والصيد بالرمح</p>
+                            <ul class="feature-list">
+                                <li>تسجيل تفاصيل العمق والرؤية</li>
+                                <li>مراقبة التيارات وظروف الغطس</li>
+                                <li>رفع صور الرحلات</li>
+                                <li>إحصائيات أداء الغطس</li>
+                            </ul>
+                        </div>
+
+                        <!-- مدرب الغوص الذكي -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-diving">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3><i class="fas fa-robot"></i> مدرب الغوص الذكي</h3>
+                            <p>مدرب افتراضي شخصي لتطوير مهارات الغطس</p>
+                            <ul class="feature-list">
+                                <li>توصيات مخصصة بناءً على الأداء</li>
+                                <li>خطط تدريب أسبوعية</li>
+                                <li>تحليل أداء وتقدم الغطس</li>
+                                <li>دردشة مباشرة مع المدرب الذكي</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- الميزات العامة -->
+                <section class="category-section" id="general">
+                    <div class="category-header">
+                        <h2><i class="fas fa-star"></i> الميزات العامة</h2>
+                        <p>خدمات إضافية تثري تجربة استخدام التطبيق</p>
+                    </div>
+
+                    <div class="features-grid">
+                        <!-- اتجاه القبلة -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-prayer">
+                                <i class="fas fa-compass"></i>
+                            </div>
+                            <h3><i class="fas fa-compass"></i> اتجاه القبلة</h3>
+                            <p>بوصلة ذكية دقيقة لتحديد اتجاه الكعبة المشرفة</p>
+                            <ul class="feature-list">
+                                <li>بوصلة رقمية عالية الدقة</li>
+                                <li>حساب المسافة للكعبة</li>
+                                <li>عمل دون اتصال بالإنترنت</li>
+                                <li>توجيه تفاعلي مع اهتزازات</li>
+                            </ul>
+                        </div>
+
+                        <!-- مواقيت الصلاة -->
+                        <div class="feature-card">
+                            <div class="feature-icon icon-prayer">
+                                <i class="fas fa-mosque"></i>
+                            </div>
+                            <h3><i class="fas fa-mosque"></i> مواقيت الصلاة</h3>
+                            <p>حساب دقيق لأوقات الصلاة حسب الموقع الجغرافي</p>
+                            <ul class="feature-list">
+                                <li>حساب تلقائي بناءً على الموقع</li>
+                                <li>أذان كامل وتنبيهات</li>
+                                <li>وضع ليلي ونهاري</li>
+                                <li>عمل في جميع أنحاء العالم</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- التقنيات المستخدمة -->
+                <section class="tech-section">
+                    <h2 style="color: var(--accent); text-align: center; margin-bottom: 30px;">
+                        <i class="fas fa-cogs"></i> التقنيات المستخدمة
+                    </h2>
+                    <div class="tech-grid">
+
+                        <div class="tech-item">
+                            <i class="fas fa-database"></i>
+                            <h4>قاعدة البيانات</h4>
+                            
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-bell"></i>
+                            <h4>الإشعارات</h4>
+                            
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-map"></i>
+                            <h4>الخرائط</h4>
+                            
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-chart-bar"></i>
+                            <h4>الرسوم البيانية</h4>
+                            
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-robot"></i>
+                            <h4>الذكاء الاصطناعي</h4>
+                            
+                        </div>
+                    </div>
+                </section>
+
+                <!-- الهوية البصرية -->
+                <section class="brand-section">
+                    <h2><i class="fas fa-palette"></i> الهوية البصرية</h2>
+                    <p>تصميم عصري يعكس روح البحر والطبيعة الليبية</p>
+                    
+                    <div class="color-palette">
+                        <div class="color-item" style="background: #1976f3;">أزرق أساسي<br>#1976f3</div>
+                        <div class="color-item" style="background: #0d5db6;">أزرق غامق<br>#0d5db6</div>
+                        <div class="color-item" style="background: #003366;">أزرق بحري<br>#003366</div>
+                        <div class="color-item" style="background: #4CAF50;">أخضر طبيعي<br>#4CAF50</div>
+                        <div class="color-item" style="background: #FF9800;">برتقالي شروق<br>#FF9800</div>
+                        <div class="color-item" style="background: #9C27B0;">أرجواني تقني<br>#9C27B0</div>
+                    </div>
+                    
+                    <p style="margin-top: 20px; opacity: 0.9;">
+                        واجهة عربية بالكامل (RTL) مع تأثيرات تفاعلية سلسة وتصميم متجاوب يعمل على جميع الأجهزة
+                    </p>
+                </section>
+
+                <!-- أزرار التنقل -->
+                <div class="features-nav">
+                    <a href="index.html" class="nav-btn">
+                        <i class="fas fa-arrow-right"></i>
+                        العودة للرئيسية
+                    </a>
+                    <a href="download.html" class="nav-btn">
+                        <i class="fas fa-download"></i>
+                        تحميل التطبيق
+                    </a>
+                    <a href="support.html" class="nav-btn">
+                        <i class="fas fa-headset"></i>
+                        الدعم الفني
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- سيتم تحميل الفوتر تلقائياً هنا -->
+    <div id="footer-container"></div>
+
+    <!-- السكريبتات -->
+    <script src="shared/config.js"></script>
+    <script src="assets/js/main.js"></script>
+    
+    <script>
+        // مؤشر التقدم أثناء التمرير
+        window.addEventListener('scroll', function() {
+            const winHeight = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset;
+            const trackLength = docHeight - winHeight;
+            const progress = Math.floor(scrollTop / trackLength * 100);
+            
+            document.getElementById('progressBar').style.width = progress + '%';
+        });
+
+        // تأثيرات تفاعلية للبطاقات
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            
+            featureCards.forEach((card, index) => {
+                // تأخير ظهور البطاقات
+                card.style.animationDelay = (index * 0.1) + 's';
+                
+                // تأثير التمرير
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // تنعيم التمرير للروابط الداخلية
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
