@@ -695,18 +695,39 @@
                 }
 
                 // إنشاء حساب جديد
-                const { error: insertError } = await supabase.from('users').insert([{
-                    name,
-                    email,
-                    password,
-                    avatar_url: 'https://via.placeholder.com/100',
-                    created_at: new Date().toISOString(),
-                    is_store_owner: accountType === 'store',
-                    store_status: accountType === 'store' ? 'pending' : null,
-                    is_approved: accountType !== 'store' // المستخدمين العاديين موافق عليهم تلقائياً
-                }]);
+                const { data: newUser, error: insertError } = await supabase
+                    .from('users')
+                    .insert([{
+                        name,
+                        email,
+                        password,
+                        avatar_url: 'https://via.placeholder.com/100',
+                        created_at: new Date().toISOString(),
+                        is_store_owner: accountType === 'store',
+                        store_status: accountType === 'store' ? 'pending' : null,
+                        is_approved: accountType !== 'store' // المستخدمين العاديين موافق عليهم تلقائياً
+                    }])
+                    .select()
+                    .single();
 
                 if (insertError) throw insertError;
+
+                // إذا كان نوع الحساب متجر، أنشئ سجل في جدول المتاجر
+                if (accountType === 'store' && newUser) {
+                    const { error: storeError } = await supabase
+                        .from('stores')
+                        .insert([{
+                            name: name,
+                            owner_id: newUser.id,
+                            created_at: new Date().toISOString()
+                        }]);
+
+                    if (storeError) {
+                        console.error('Error creating store:', storeError);
+                        // لا نوقف العملية إذا فشل إنشاء المتجر
+                        showMessage('✅ تم إنشاء الحساب ولكن حدث خطأ في إنشاء المتجر', 'info');
+                    }
+                }
 
                 showMessage('✅ تم إنشاء الحساب بنجاح! جاري تسجيل الدخول...', 'success');
 
@@ -737,6 +758,7 @@
                 submitBtn.innerHTML = '<span>إنشاء حساب</span>';
             }
         });
+
         // نسيت كلمة المرور
         document.getElementById('forgot-password').addEventListener('click', (e) => {
             e.preventDefault();
