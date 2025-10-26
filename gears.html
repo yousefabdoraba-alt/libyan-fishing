@@ -1,0 +1,2118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎣 معدات الصيد - دليل الصيد الليبي</title>
+
+    <!-- خطوط وأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.38.0/dist/umd/supabase.min.js"></script>
+    <!-- الأنماط -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* أنماط صفحة المعدات */
+        .gears-content {
+            padding: 80px 0 60px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(25, 118, 243, 0.03), rgba(0, 51, 102, 0.02));
+        }
+
+        .gears-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .gears-header h1 {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gears-header p {
+            color: var(--sub-text);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* أيقونة المعدات العائمة */
+        .gears-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(25, 118, 243, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .gears-icon i {
+            font-size: 48px;
+            color: white;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* أنماط البطاقات في صفوف أفقية */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .subcategories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        /* بطاقة الفئة الرئيسية - تصميم أفقي محسّن */
+        .main-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 8px 25px var(--shadow);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .main-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px var(--shadow-hover);
+        }
+
+        .thumb {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-color: #f0f0f0;
+            flex-shrink: 0;
+        }
+
+        .meta {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .category-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0 0 10px 0;
+            line-height: 1.4;
+        }
+
+        .category-desc {
+            font-size: 14px;
+            color: var(--sub-text);
+            line-height: 1.5;
+            margin-bottom: 15px;
+            flex: 1;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+
+        .btn-view {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 16px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-view:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .btn-branches {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 16px;
+            background: #10b981;
+            color: white;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-branches:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        /* بطاقة الفئة الفرعية - تصميم أفقي */
+        .sub-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            cursor: pointer;
+            height: 100px;
+        }
+
+        .sub-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--shadow-hover);
+        }
+
+        .sub-thumb {
+            width: 70px;
+            height: 70px;
+            background-size: cover;
+            background-position: center;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            flex-shrink: 0;
+            margin-left: 15px;
+        }
+
+        .sub-meta {
+            flex: 1;
+            text-align: right;
+        }
+
+        .sub-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 0 0 5px 0;
+        }
+
+        .sub-desc {
+            font-size: 13px;
+            color: var(--sub-text);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* بطاقة المقال - تصميم أفقي محسّن */
+        .article-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .article-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--shadow-hover);
+        }
+
+        .article-thumb {
+            width: 100%;
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            background-color: #f0f0f0;
+            flex-shrink: 0;
+        }
+
+        .article-meta {
+            padding: 15px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0 0 8px 0;
+            line-height: 1.4;
+        }
+
+        .article-excerpt {
+            font-size: 13px;
+            color: var(--sub-text);
+            line-height: 1.5;
+            margin: 0;
+            flex: 1;
+        }
+
+        .article-date {
+            font-size: 12px;
+            color: var(--sub-text);
+            margin-top: 10px;
+            border-top: 1px solid var(--border);
+            padding-top: 10px;
+        }
+
+        /* عرض المقال الكامل */
+        .article-view {
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-view-title {
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            color: #222;
+            margin-bottom: 20px;
+        }
+
+        .article-view-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .article-view-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .article-view-content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        .article-view-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+
+        .article-view-content th,
+        .article-view-content td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .article-view-content th {
+            background: var(--primary);
+            color: white;
+        }
+
+        .offline-banner {
+            background: #ffeb3b;
+            color: #333;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* نظام التعليقات */
+        .comments-section {
+            margin-top: 40px;
+            border-top: 1px solid var(--border);
+            padding-top: 30px;
+        }
+
+        .comments-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .comments-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .comments-count {
+            background: var(--primary);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .comment-form {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+        }
+
+        .comment-input-container {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .comment-input-wrapper {
+            flex: 1;
+        }
+
+        .comment-input {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 15px;
+            resize: vertical;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .comment-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(25, 118, 243, 0.1);
+        }
+
+        .comment-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .comment-submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .comment-submit-btn:hover:not(:disabled) {
+            background: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .comment-submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .login-prompt {
+            text-align: center;
+            padding: 25px;
+            background: var(--bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .login-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        /* قائمة التعليقات */
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .comment-item {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .comment-item:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .comment-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .comment-user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .comment-user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .comment-username {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text);
+        }
+
+        .comment-time {
+            font-size: 12px;
+            color: var(--sub-text);
+        }
+
+        .comment-actions-menu {
+            position: relative;
+        }
+
+        .comment-menu-btn {
+            background: none;
+            border: none;
+            color: var(--sub-text);
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .comment-menu-btn:hover {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .comment-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            min-width: 120px;
+            display: none;
+        }
+
+        .comment-dropdown.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 14px;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: right;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .dropdown-item:hover {
+            background: var(--bg);
+        }
+
+        .dropdown-item.edit {
+            color: var(--primary);
+        }
+
+        .dropdown-item.delete {
+            color: #ff4757;
+        }
+
+        .comment-content {
+            margin: 10px 0;
+            line-height: 1.6;
+            font-size: 15px;
+            color: var(--text);
+        }
+
+        .comment-footer {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .comment-like-btn,
+        .comment-reply-btn {
+            background: none;
+            border: none;
+            color: var(--sub-text);
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .comment-like-btn:hover,
+        .comment-reply-btn:hover {
+            color: var(--primary);
+        }
+
+        .comment-like-btn.liked {
+            color: #ff4757;
+        }
+
+        /* الردود */
+        .replies-section {
+            margin-top: 15px;
+            padding-right: 25px;
+            border-right: 2px solid var(--bg);
+        }
+
+        .reply-form {
+            margin: 15px 0;
+            padding: 15px;
+            background: var(--bg);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .reply-form.show {
+            display: block;
+        }
+
+        .reply-input {
+            width: 100%;
+            min-height: 70px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        .reply-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .reply-submit-btn,
+        .reply-cancel-btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .reply-submit-btn {
+            background: var(--primary);
+            color: white;
+        }
+
+        .reply-cancel-btn {
+            background: var(--bg);
+            color: var(--sub-text);
+        }
+
+        /* تحرير التعليق */
+        .comment-edit-form {
+            display: none;
+        }
+
+        .comment-edit-form.show {
+            display: block;
+        }
+
+        .edit-comment-input {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        .edit-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .edit-save-btn,
+        .edit-cancel-btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .edit-save-btn {
+            background: var(--primary);
+            color: white;
+        }
+
+        .edit-cancel-btn {
+            background: var(--bg);
+            color: var(--sub-text);
+        }
+
+        /* لا توجد تعليقات */
+        .no-comments {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--sub-text);
+        }
+
+        .no-comments-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        /* الإشعارات */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid #4CAF50;
+            z-index: 10000;
+            max-width: 350px;
+            animation: slideInRight 0.3s ease, slideOutRight 0.3s ease 2.7s forwards;
+        }
+
+        .notification.error {
+            border-left-color: #ff4757;
+        }
+
+        .notification.info {
+            border-left-color: #1976f3;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notification-icon {
+            font-size: 20px;
+        }
+
+        .notification.success .notification-icon {
+            color: #4CAF50;
+        }
+
+        .notification.error .notification-icon {
+            color: #ff4757;
+        }
+
+        .notification.info .notification-icon {
+            color: #1976f3;
+        }
+
+        .notification-message {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* نافذة المعجبين */
+        .likes-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+
+        .likes-modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 0;
+            max-width: 400px;
+            width: 100%;
+            max-height: 500px;
+            overflow: hidden;
+        }
+
+        .likes-modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .likes-modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .likes-modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--sub-text);
+        }
+
+        .likes-modal-list {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px 0;
+        }
+
+        .likes-modal-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            transition: background 0.3s ease;
+        }
+
+        .likes-modal-item:hover {
+            background: var(--bg);
+        }
+
+        .likes-modal-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .likes-modal-username {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .likes-modal-time {
+            font-size: 12px;
+            color: var(--sub-text);
+            margin-top: 2px;
+        }
+
+        /* حالة عدم وجود بيانات */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--sub-text);
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        /* أزرار التنقل */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 20px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background 0.3s;
+            justify-content: center;
+            width: 180px;
+        }
+
+        .btn-back:hover {
+            background: var(--accent);
+        }
+
+        /* تصميم متجاوب للشاشات المختلفة */
+        @media (max-width: 1200px) {
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+
+            .articles-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .subcategories-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .main-card {
+                margin-bottom: 0;
+            }
+
+            .card-actions {
+                flex-direction: column;
+            }
+
+            .btn-view,
+            .btn-branches {
+                text-align: center;
+                justify-content: center;
+            }
+
+            .gears-header h1 {
+                font-size: 32px;
+            }
+
+            .comment-input-container {
+                flex-direction: column;
+            }
+
+            .user-avatar {
+                align-self: flex-start;
+            }
+
+            .replies-section {
+                padding-right: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sub-card {
+                height: auto;
+                min-height: 80px;
+            }
+
+            .sub-thumb {
+                width: 50px;
+                height: 50px;
+                margin-left: 10px;
+            }
+
+            .article-thumb {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- سيتم تحميل الهيدر تلقائياً هنا -->
+    <div id="header-container"></div>
+
+    <!-- محتوى صفحة المعدات -->
+    <main class="page-content">
+        <section class="gears-content">
+            <div class="container">
+                <!-- الهيدر -->
+                <div class="gears-header">
+                    <div class="gears-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h1>🎣 معدات الصيد</h1>
+                    <p>دليلك الشامل لمعرفة كل ما يخص معدات الصيد، من أساسيات الاختيار إلى النصائح المتقدمة</p>
+                </div>
+
+                <!-- المحتوى الديناميكي -->
+                <div id="contentContainer">
+                    <!-- سيتم تعبئته بالجافاسكريبت -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- سيتم تحميل الفوتر تلقائياً هنا -->
+    <div id="footer-container"></div>
+
+    <!-- السكريبتات -->
+    <script src="shared/config.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        // استخدام supabaseClient الموجود من main.js
+        const supabase = window.supabaseClient;
+        // تكوين Supabase
+
+        // متغيرات التطبيق
+        let categories = [];
+        let articles = [];
+        let comments = [];
+        let navigationStack = [];
+        let currentUser = null;
+        let currentPageId = null;
+
+        // رموز الأيقونات للفئات
+        const categoryIcons = {
+            'صنارات': 'fas fa-fishing-rod',
+            'بكرات': 'fas fa-cog',
+            'خيوط': 'fas fa-link',
+            'طعوم': 'fas fa-worm',
+            'خطاطيف': 'fas fa-anchor',
+            'ملابس': 'fas fa-tshirt',
+            'إلكترونيات': 'fas fa-satellite-dish',
+            'إكسسوارات': 'fas fa-toolbox',
+            'صيانة': 'fas fa-tools',
+            'default': 'fas fa-fish'
+        };
+
+
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(() => {
+                initializePage();
+            }, 100);
+        });
+
+        // تهيئة الصفحة
+        function initializePage() {
+            if (!window.supabaseClient) {
+                console.error('❌ Supabase client not available');
+                showError('تعذر الاتصال بقاعدة البيانات');
+                return;
+            }
+
+            currentUser = JSON.parse(localStorage.getItem('user'));
+            loadData();
+            setupNavigation();
+        }
+
+        function initializeSupabaseDirectly() {
+            console.log('🔄 محاولة تهيئة Supabase مباشرة...');
+
+            if (typeof supabase === 'undefined') {
+                console.error('❌ مكتبة Supabase غير محملة');
+                showNotification('❌ خطأ في تحميل المكتبات', 'error');
+                loadFromLocalStorage();
+                navigateToMain(false);
+                return;
+            }
+
+            try {
+                supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                window.supabaseClient = supabase;
+                console.log('✅ تم تهيئة Supabase بنجاح مباشرة');
+                loadData();
+            } catch (error) {
+                console.error('❌ فشل في تهيئة Supabase:', error);
+                showNotification('⚠️ الوضع غير متصل - استخدام البيانات المحفوظة', 'info');
+                loadFromLocalStorage();
+                navigateToMain(false);
+            }
+        }
+
+        // ---------- نظام التنقل والرجوع ----------
+        function setupNavigation() {
+            window.addEventListener('popstate', function (event) {
+                if (event.state) {
+                    handleNavigationState(event.state);
+                }
+            });
+        }
+
+        function handleNavigationState(state) {
+            switch (state.type) {
+                case 'main':
+                    navigateToMain(false);
+                    break;
+                case 'sub':
+                    renderSubCategoryItems(state.id, state.title, false);
+                    break;
+                case 'articles':
+                    renderArticlesList(state.id, state.title.replace(/^مقالات\s*/, ''), false);
+                    break;
+                case 'article':
+                    showArticleInPage(state.id, state.articleType || 'gear', state.title, false);
+                    break;
+            }
+        }
+
+        function pushAppState(stateObj) {
+            history.pushState(stateObj, '', '');
+            navigationStack.push(stateObj);
+        }
+
+        function replaceAppState(stateObj) {
+            history.replaceState(stateObj, '', '');
+            navigationStack.length = 0;
+            navigationStack.push(stateObj);
+        }
+
+        function updateHeader(title) {
+            const header = document.querySelector('.gears-header h1');
+            if (header) {
+                header.textContent = title || '🎣 معدات الصيد';
+            }
+        }
+
+        function addBackButton() {
+            const existingBtn = document.querySelector('.btn-back');
+            if (existingBtn) existingBtn.remove();
+
+            const btnWrapper = document.createElement('div');
+            btnWrapper.className = 'btn-container';
+
+            const backBtn = document.createElement('a');
+            backBtn.href = '#';
+            backBtn.className = 'btn-back';
+            backBtn.innerHTML = '<i class="fas fa-arrow-right"></i> رجوع';
+            backBtn.onclick = (e) => {
+                e.preventDefault();
+                goBack();
+            };
+
+            btnWrapper.appendChild(backBtn);
+
+            const contentContainer = document.getElementById('contentContainer');
+            if (contentContainer) {
+                contentContainer.appendChild(btnWrapper);
+            }
+        }
+
+        // ---------- تحميل البيانات ----------
+        async function loadData() {
+            try {
+                showLoading();
+
+                if (!supabase) {
+                    throw new Error('Supabase client not available');
+                }
+
+                console.log('📥 جاري تحميل البيانات من Supabase...');
+
+                // تحميل الفئات
+                const { data: categoriesData, error: categoriesError } = await supabase
+                    .from('gear_categories')
+                    .select('*')
+                    .eq('is_active', true)
+                    .order('created_at', { ascending: false });
+
+                if (categoriesError) throw categoriesError;
+                categories = categoriesData || [];
+                console.log(`✅ تم تحميل ${categories.length} فئة`);
+
+                // تحميل المقالات
+                const { data: articlesData, error: articlesError } = await supabase
+                    .from('gear_articles')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (articlesError) throw articlesError;
+                articles = articlesData || [];
+                console.log(`✅ تم تحميل ${articles.length} مقال`);
+
+                // حفظ البيانات محلياً
+                localStorage.setItem('gear_categories', JSON.stringify(categories));
+                localStorage.setItem('gear_articles', JSON.stringify(articles));
+
+                navigateToMain(false);
+                hideLoading();
+                showNotification('✅ تم تحميل البيانات بنجاح', 'success');
+
+            } catch (error) {
+                console.error('❌ خطأ في تحميل البيانات:', error);
+                loadFromLocalStorage();
+                navigateToMain(false);
+                hideLoading();
+                showNotification('⚠️ استخدام البيانات المحفوظة', 'info');
+            }
+        }
+
+        function loadFromLocalStorage() {
+            try {
+                const savedCategories = localStorage.getItem('gear_categories');
+                const savedArticles = localStorage.getItem('gear_articles');
+
+                categories = savedCategories ? JSON.parse(savedCategories) : [];
+                articles = savedArticles ? JSON.parse(savedArticles) : [];
+
+                console.log('📁 تم التحميل من localStorage:', {
+                    categories: categories.length,
+                    articles: articles.length
+                });
+            } catch (e) {
+                console.error('❌ خطأ في تحميل البيانات من localStorage:', e);
+                categories = [];
+                articles = [];
+            }
+        }
+
+        // ---------- التنقل بين الصفحات ----------
+        function navigateToMain(pushHistory = true) {
+            updateHeader('🎣 معدات الصيد');
+
+            const container = document.getElementById('contentContainer');
+            const mainCats = categories.filter(c => !c.parent_id);
+
+            if (mainCats.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-icon">📁</div><h3>لا توجد فئات</h3></div>';
+            } else {
+                let html = '<div class="categories-grid">';
+
+                mainCats.forEach(cat => {
+                    const articlesCount = articles.filter(a => a.id_categories == cat.id).length;
+                    const hasSubCategories = categories.some(c => c.parent_id == cat.id);
+
+                    html += `
+                <div class="main-card">
+                    <div class="thumb" style="background-image:url('${cat.image_url || createDefaultImage(cat.name_ar, 'category')}')"></div>
+                    <div class="meta">
+                        <h3 class="category-name">${escapeHtml(cat.name_ar)}</h3>
+                        <p class="category-desc">${escapeHtml(cat.description_ar || '').slice(0, 100)}...</p>
+                        <div class="card-actions">
+            `;
+
+                    if (articlesCount > 0) {
+                        html += `
+                    <button class="btn-view" onclick="showArticlesForCategory(${cat.id}, '${cat.name_ar}')">
+                        <i class="fas fa-newspaper"></i>
+                        عرض المقالات (${articlesCount})
+                    </button>
+                `;
+                    }
+
+                    if (hasSubCategories) {
+                        html += `
+                    <button class="btn-branches" onclick="navigateToSub(${cat.id}, '${cat.name_ar}')">
+                        <i class="fas fa-folder"></i>
+                        عرض الفروع
+                    </button>
+                `;
+                    }
+
+                    if (articlesCount === 0 && !hasSubCategories) {
+                        html += '<span style="color:#aaa; font-size:14px;">لا توجد محتويات</span>';
+                    }
+
+                    html += `
+                        </div>
+                    </div>
+                </div>
+            `;
+                });
+
+                html += '</div>';
+                container.innerHTML = html;
+            }
+
+            const state = { type: 'main', title: '🎣 معدات الصيد' };
+            pushHistory ? pushAppState(state) : replaceAppState(state);
+        }
+
+        function renderSubCategoryItems(parentId, parentName, pushHistory = true) {
+            const container = document.getElementById('contentContainer');
+            updateHeader(parentName || '');
+
+            const subItems = categories.filter(item => item.parent_id == parentId);
+
+            if (subItems.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-icon">📁</div><h3>لا توجد فروع</h3></div>';
+            } else {
+                let html = '<div class="subcategories-grid">';
+
+                subItems.forEach(item => {
+                    const hasChild = categories.some(c => c.parent_id == item.id);
+                    const isFinal = !hasChild;
+                    const articlesCount = articles.filter(a => a.id_categories == item.id).length;
+
+                    html += `
+                <div class="sub-card" onclick="${isFinal ? `showArticlesForCategory(${item.id}, '${item.name_ar}')` : `navigateToSub(${item.id}, '${item.name_ar}')`}">
+                    <div class="sub-thumb" style="background-image:url('${item.image_url || createDefaultImage(item.name_ar, 'category')}')"></div>
+                    <div class="sub-meta">
+                        <div class="sub-name">
+                            <span class="sub-icon">${isFinal ? '📄' : '📁'}</span>
+                            ${escapeHtml(item.name_ar)}
+                        </div>
+                        ${articlesCount === 0 && !hasChild ?
+                            '<p style="color:#aaa; font-size:12px; margin:5px 0 0;">لا توجد مقالات</p>' :
+                            ''
+                        }
+                    </div>
+                </div>
+            `;
+                });
+
+                html += '</div>';
+                container.innerHTML = html;
+            }
+
+            addBackButton();
+
+            const state = { type: 'sub', id: parentId, title: parentName };
+            pushHistory ? pushAppState(state) : replaceAppState(state);
+        }
+
+        function navigateToSub(parentId, parentName) {
+            renderSubCategoryItems(parentId, parentName, true);
+        }
+
+        function renderArticlesList(categoryId, categoryName, pushHistory = true) {
+            const container = document.getElementById('contentContainer');
+            updateHeader(`مقالات ${categoryName || ''}`);
+
+            const categoryArticles = articles.filter(a => a.id_categories == categoryId);
+
+            if (categoryArticles.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-icon">📝</div><h3>لا توجد مقالات</h3></div>';
+            } else {
+                let html = '<div class="articles-grid">';
+
+                categoryArticles.forEach(article => {
+                    const excerpt = generateExcerpt(article.content_html);
+
+                    html += `
+                <div class="article-card" onclick="showArticleInPage(${article.id}, 'gear', '${article.title_ar}')">
+                    <div class="article-thumb" style="background-image:url('${article.image_url || createDefaultImage(article.title_ar, 'article')}')"></div>
+                    <div class="article-meta">
+                        <h4 class="article-title">${escapeHtml(article.title_ar)}</h4>
+                        <p class="article-excerpt">${excerpt}</p>
+                        <div class="article-date">
+                            <i class="far fa-clock"></i> ${getTimeAgo(article.created_at)}
+                        </div>
+                    </div>
+                </div>
+            `;
+                });
+
+                html += '</div>';
+                container.innerHTML = html;
+            }
+
+            addBackButton();
+
+            const state = { type: 'articles', id: categoryId, title: `مقالات ${categoryName}` };
+            pushHistory ? pushAppState(state) : replaceAppState(state);
+        }
+
+        function showArticlesForCategory(categoryId, categoryName) {
+            renderArticlesList(categoryId, categoryName, true);
+        }
+
+        async function showArticleInPage(articleId, articleType = 'gear', articleTitle = '', pushHistory = true) {
+            const container = document.getElementById('contentContainer');
+            container.innerHTML = '<div class="loading" style="text-align:center; padding:40px;">⏳ جاري تحميل المقال...</div>';
+
+            let article = null;
+
+            try {
+                if (supabase) {
+                    const { data } = await supabase.from(`${articleType}_articles`).select("*").eq("id", articleId).single();
+                    if (data) article = data;
+                }
+            } catch (e) {
+                console.warn('❌ خطأ في جلب المقال:', e);
+            }
+
+            if (!article) {
+                const localList = JSON.parse(localStorage.getItem(`${articleType}_articles`) || "[]");
+                article = localList.find(a => a.id == articleId);
+            }
+
+            if (!article) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-icon">❌</div><h3>المقال غير موجود</h3></div>';
+                addBackButton();
+                return;
+            }
+
+            const isOffline = !navigator.onLine;
+            const offlineBanner = isOffline ? '<div class="offline-banner">⚠️ عرض محفوظ</div>' : '';
+            const title = article.title_ar || articleTitle || 'عنوان غير متوفر';
+            const content = article.content_html || "<p>محتوى غير متوفر.</p>";
+            const imageUrl = article.image_url || createDefaultImage(title, 'article');
+
+            container.innerHTML = `
+        <div class="article-view">
+            ${offlineBanner}
+            <h1 class="article-view-title">${escapeHtml(title)}</h1>
+            <img src="${imageUrl}" alt="${escapeHtml(title)}" class="article-view-image">
+            <div class="article-view-content">${content}</div>
+            
+            <!-- قسم التعليقات -->
+            <div class="comments-section" id="commentsSection">
+                <!-- سيتم تعبئته بالجافاسكريبت -->
+            </div>
+        </div>
+    `;
+
+            // تحميل التعليقات
+            await loadComments(articleId);
+            addBackButton();
+
+            const state = { type: 'article', id: articleId, title: title, articleType: articleType };
+            pushHistory ? pushAppState(state) : replaceAppState(state);
+        }
+
+        // ---------- الرجوع ----------
+        function goBack() {
+            if (navigationStack.length === 1 && navigationStack[0].type === 'main') {
+                window.location.href = '../index.html';
+                return;
+            }
+
+            navigationStack.pop();
+            const prev = navigationStack[navigationStack.length - 1];
+            if (!prev) {
+                window.location.href = '../index.html';
+                return;
+            }
+
+            switch (prev.type) {
+                case 'main':
+                    navigateToMain(false);
+                    replaceAppState(prev);
+                    break;
+                case 'sub':
+                    renderSubCategoryItems(prev.id, prev.title, false);
+                    replaceAppState(prev);
+                    break;
+                case 'articles':
+                    const catName = (prev.title || '').replace(/^مقالات\s*/, '');
+                    renderArticlesList(prev.id, catName, false);
+                    replaceAppState(prev);
+                    break;
+                case 'article':
+                    showArticleInPage(prev.id, prev.articleType || 'gear', prev.title, false);
+                    replaceAppState(prev);
+                    break;
+            }
+        }
+
+        // ---------- نظام التعليقات ----------
+        async function loadComments(articleId) {
+            currentPageId = articleId.toString();
+
+            const commentsSection = document.getElementById('commentsSection');
+            if (!commentsSection) return;
+
+            try {
+                const { data: commentsData, error } = await supabase
+                    .from('comments')
+                    .select('*')
+                    .eq('page_id', currentPageId)
+                    .order('created_at', { ascending: true });
+
+                if (error) throw error;
+                comments = commentsData || [];
+                renderCommentsSection();
+
+            } catch (error) {
+                console.error('❌ خطأ في تحميل التعليقات:', error);
+                comments = [];
+                renderCommentsSection();
+            }
+        }
+
+        async function renderCommentsSection() {
+            const commentsSection = document.getElementById('commentsSection');
+            if (!commentsSection) return;
+
+            const commentsCount = comments.length;
+            const rootComments = comments.filter(c => !c.parent_id);
+
+            commentsSection.innerHTML = `
+        <div class="comments-header">
+            <h3 class="comments-title">التعليقات</h3>
+            <span class="comments-count">${commentsCount}</span>
+        </div>
+        
+        ${renderCommentForm()}
+        
+        <div class="comments-list" id="commentsList">
+            ${rootComments.length > 0 ?
+                    await Promise.all(rootComments.map(async comment => await renderCommentItem(comment, comments)))
+                        .then(commentsHTML => commentsHTML.join('')) :
+                    '<div class="no-comments"><div class="no-comments-icon">💬</div><p>لا توجد تعليقات بعد</p><p>كن أول من يعلق!</p></div>'
+                }
+        </div>
+    `;
+
+            setupCommentInteractions();
+        }
+
+        function renderCommentForm() {
+            if (!currentUser) {
+                return `
+            <div class="login-prompt">
+                <p>⚠️ يرجى تسجيل الدخول لإضافة تعليق</p>
+                <button class="login-btn" onclick="goToLogin()">تسجيل الدخول</button>
+            </div>
+        `;
+            }
+
+            const userName = currentUser.name || currentUser.email || currentUser.username || 'مستخدم';
+            const userInitial = userName.charAt(0).toUpperCase();
+
+            return `
+        <div class="comment-form">
+            <div class="comment-input-container">
+                <div class="user-avatar">${userInitial}</div>
+                <div class="comment-input-wrapper">
+                    <textarea 
+                        class="comment-input" 
+                        id="commentInput" 
+                        placeholder="اكتب تعليقك..." 
+                        rows="3"
+                    ></textarea>
+                    <div class="comment-actions">
+                        <span style="font-size: 12px; color: var(--sub-text);">Ctrl+Enter لإرسال</span>
+                        <button class="comment-submit-btn" id="submitCommentBtn" disabled>
+                            نشر
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+        }
+
+        async function renderCommentItem(comment, allComments) {
+            const userInitial = comment.username ? comment.username.charAt(0).toUpperCase() : 'U';
+            const isOwner = currentUser && (
+                currentUser.name === comment.username ||
+                currentUser.email === comment.username
+            );
+            const replies = allComments.filter(c => c.parent_id === comment.id);
+            const timeAgo = getTimeAgo(comment.created_at);
+            const likesData = await getCommentLikes(comment.id);
+            const likesCount = likesData.count;
+            const isLiked = likesData.isLiked;
+
+            return `
+        <div class="comment-item" data-comment-id="${comment.id}">
+            <div class="comment-header">
+                <div class="comment-user">
+                    <div class="comment-user-avatar">${userInitial}</div>
+                    <div class="comment-user-info">
+                        <div class="comment-username">${escapeHtml(comment.username || 'مستخدم')}</div>
+                        <div class="comment-time">${timeAgo}</div>
+                    </div>
+                </div>
+                ${isOwner ? `
+                    <div class="comment-actions-menu">
+                        <button class="comment-menu-btn" onclick="toggleCommentMenu(this)">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                        <div class="comment-dropdown">
+                            <button class="dropdown-item edit" onclick="editComment('${comment.id}')">
+                                <i class="fas fa-edit"></i>
+                                تعديل
+                            </button>
+                            <button class="dropdown-item delete" onclick="deleteComment('${comment.id}')">
+                                <i class="fas fa-trash"></i>
+                                حذف
+                            </button>
+                        </div>
+                    </div>
+                ` : ''}
+            </div>
+            
+            <div class="comment-content" id="commentContent-${comment.id}">
+                ${escapeHtml(comment.comment)}
+            </div>
+            
+            <div class="comment-edit-form" id="editForm-${comment.id}">
+                <textarea class="edit-comment-input" id="editInput-${comment.id}">${escapeHtml(comment.comment)}</textarea>
+                <div class="edit-actions">
+                    <button class="edit-cancel-btn" onclick="cancelEdit('${comment.id}')">إلغاء</button>
+                    <button class="edit-save-btn" onclick="saveComment('${comment.id}')">حفظ</button>
+                </div>
+            </div>
+            
+            <div class="comment-footer">
+                <button class="comment-like-btn ${isLiked ? 'liked' : ''}" 
+                        onclick="toggleLike('${comment.id}')"
+                        ${likesCount > 0 ? `oncontextmenu="showLikesModal('${comment.id}'); return false;"` : ''}>
+                    <i class="${isLiked ? 'fas' : 'far'} fa-heart like-icon"></i>
+                    <span class="like-count">${likesCount > 0 ? likesCount : ''}</span>
+                    <span>${likesCount === 1 ? 'إعجاب' : 'إعجاب'}</span>
+                </button>
+                <button class="comment-reply-btn" onclick="showReplyForm('${comment.id}')">
+                    <i class="far fa-comment"></i>
+                    رد
+                </button>
+            </div>
+            
+            <div class="reply-form" id="replyForm-${comment.id}">
+                <textarea class="reply-input" id="replyInput-${comment.id}" placeholder="اكتب ردك..."></textarea>
+                <div class="reply-actions">
+                    <button class="reply-cancel-btn" onclick="hideReplyForm('${comment.id}')">إلغاء</button>
+                    <button class="reply-submit-btn" onclick="submitReply('${comment.id}')">رد</button>
+                </div>
+            </div>
+            
+            ${replies.length > 0 ? `
+                <div class="replies-section">
+                    ${await Promise.all(replies.map(async reply => await renderCommentItem(reply, allComments)))
+                        .then(repliesHTML => repliesHTML.join(''))}
+                </div>
+            ` : ''}
+        </div>
+    `;
+        }
+
+        // ---------- دوال مساعدة ----------
+        function escapeHtml(text) {
+            if (!text) return "";
+            return text.replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function generateExcerpt(htmlContent, maxLength = 120) {
+            if (!htmlContent) return 'لا يوجد محتوى...';
+            const text = htmlContent.replace(/<[^>]*>/g, '');
+            return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+        }
+
+        function getTimeAgo(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+
+            if (diffMins < 1) return 'الآن';
+            if (diffMins < 60) return `قبل ${diffMins} دقيقة`;
+            if (diffHours < 24) return `قبل ${diffHours} ساعة`;
+            if (diffDays < 7) return `قبل ${diffDays} يوم`;
+
+            return date.toLocaleDateString('ar-SA');
+        }
+
+        function createDefaultImage(text, type = 'category') {
+            const colors = {
+                category: ['#1976f3', '#0a5bcf'],
+                article: ['#10b981', '#059669'],
+                avatar: ['#8b5cf6', '#7c3aed']
+            };
+
+            const [color1, color2] = colors[type] || colors.category;
+            const encodedText = encodeURIComponent(text);
+
+            const svg = `
+        <svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="${color1}" />
+                    <stop offset="100%" stop-color="${color2}" />
+                </linearGradient>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#gradient)"/>
+            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" 
+                  fill="white" font-family="Arial" font-size="24" font-weight="bold">
+                ${encodedText}
+            </text>
+        </svg>
+    `;
+
+            return 'data:image/svg+xml;base64,' + btoa(svg);
+        }
+
+        function showLoading() {
+            const container = document.getElementById('contentContainer');
+            if (container) {
+                container.innerHTML = '<div class="loading" style="text-align: center; padding: 60px 20px;"><div class="loading-spinner"></div><p>جاري التحميل...</p></div>';
+            }
+        }
+
+        function hideLoading() {
+            // يتم إخفاء التحميل تلقائياً عند عرض المحتوى
+        }
+
+        function showNotification(message, type = 'info') {
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+
+            const icons = {
+                success: '✅',
+                error: '❌',
+                info: '💡'
+            };
+
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+        <div class="notification-content">
+            <div class="notification-icon">${icons[type]}</div>
+            <div class="notification-message">${message}</div>
+        </div>
+    `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 3000);
+        }
+
+        // ---------- تعريف الدوال في النطاق العام ----------
+        window.navigateToMain = navigateToMain;
+        window.navigateToSub = navigateToSub;
+        window.showArticlesForCategory = showArticlesForCategory;
+        window.showArticleInPage = showArticleInPage;
+        window.goBack = goBack;
+        window.goToLogin = function () {
+            window.location.href = 'login.html?return=' + encodeURIComponent(window.location.href);
+        };
+
+        // دوال التعليقات
+        window.toggleCommentMenu = function (button) {
+            const dropdown = button.nextElementSibling;
+            const allDropdowns = document.querySelectorAll('.comment-dropdown');
+            allDropdowns.forEach(d => d.classList.remove('show'));
+            dropdown.classList.toggle('show');
+        };
+
+        window.editComment = function (commentId) {
+            document.getElementById(`commentContent-${commentId}`).style.display = 'none';
+            document.getElementById(`editForm-${commentId}`).classList.add('show');
+        };
+
+        window.cancelEdit = function (commentId) {
+            document.getElementById(`commentContent-${commentId}`).style.display = 'block';
+            document.getElementById(`editForm-${commentId}`).classList.remove('show');
+        };
+
+        window.saveComment = async function (commentId) {
+            const newText = document.getElementById(`editInput-${commentId}`).value.trim();
+            if (newText) {
+                try {
+                    const { error } = await supabase
+                        .from('comments')
+                        .update({ comment: newText })
+                        .eq('id', commentId);
+
+                    if (error) throw error;
+
+                    await loadComments(currentPageId);
+                    showNotification('تم تعديل التعليق بنجاح', 'success');
+
+                } catch (error) {
+                    console.error('❌ خطأ في تعديل التعليق:', error);
+                    showNotification('فشل في تعديل التعليق', 'error');
+                }
+            }
+        };
+
+        window.deleteComment = async function (commentId) {
+            if (confirm('هل أنت متأكد من حذف هذا التعليق؟')) {
+                try {
+                    const { error } = await supabase
+                        .from('comments')
+                        .delete()
+                        .eq('id', commentId);
+
+                    if (error) throw error;
+
+                    await loadComments(currentPageId);
+                    showNotification('تم حذف التعليق بنجاح', 'success');
+
+                } catch (error) {
+                    console.error('❌ خطأ في حذف التعليق:', error);
+                    showNotification('فشل في حذف التعليق', 'error');
+                }
+            }
+        };
+
+        window.showReplyForm = function (commentId) {
+            if (!currentUser) {
+                showNotification('يرجى تسجيل الدخول أولاً', 'info');
+                return;
+            }
+            document.getElementById(`replyForm-${commentId}`).classList.add('show');
+        };
+
+        window.hideReplyForm = function (commentId) {
+            document.getElementById(`replyForm-${commentId}`).classList.remove('show');
+        };
+
+        window.submitReply = async function (parentId) {
+            const replyInput = document.getElementById(`replyInput-${parentId}`);
+            const replyText = replyInput.value.trim();
+            if (replyText) {
+                try {
+                    const userName = currentUser.name || currentUser.email || currentUser.username || 'مستخدم';
+                    const { error } = await supabase.from('comments').insert({
+                        page_id: currentPageId,
+                        username: userName,
+                        comment: replyText,
+                        parent_id: parentId
+                    });
+
+                    if (error) throw error;
+
+                    await loadComments(currentPageId);
+                    showNotification('تم نشر ردك بنجاح', 'success');
+
+                } catch (error) {
+                    console.error('❌ خطأ في إرسال الرد:', error);
+                    showNotification('فشل في نشر الرد', 'error');
+                }
+            }
+        };
+
+        window.toggleLike = async function (commentId) {
+            if (!currentUser) {
+                showNotification('يرجى تسجيل الدخول أولاً', 'info');
+                return;
+            }
+
+            try {
+                const userName = currentUser.name || currentUser.email || currentUser.username;
+                const { data: existingLike, error: checkError } = await supabase
+                    .from('comment_likes')
+                    .select('id')
+                    .eq('comment_id', commentId)
+                    .eq('user_id', userName)
+                    .single();
+
+                if (checkError && checkError.code !== 'PGRST116') throw checkError;
+
+                if (existingLike) {
+                    const { error: deleteError } = await supabase
+                        .from('comment_likes')
+                        .delete()
+                        .eq('id', existingLike.id);
+
+                    if (deleteError) throw deleteError;
+                    showNotification('تم إزالة الإعجاب', 'info');
+                } else {
+                    const { error: insertError } = await supabase
+                        .from('comment_likes')
+                        .insert({
+                            comment_id: commentId,
+                            user_id: userName
+                        });
+
+                    if (insertError) throw insertError;
+                    showNotification('تمت الإعجاب بالتعليق', 'success');
+                }
+
+                await loadComments(currentPageId);
+
+            } catch (error) {
+                console.error('❌ خطأ في الإعجاب:', error);
+                showNotification('فشل في تحديث الإعجاب', 'error');
+            }
+        };
+
+        window.showLikesModal = async function (commentId) {
+            const likes = await getLikesList(commentId);
+            const modal = document.createElement('div');
+            modal.className = 'likes-modal';
+            modal.innerHTML = `
+        <div class="likes-modal-content">
+            <div class="likes-modal-header">
+                <h3 class="likes-modal-title">المعجبون</h3>
+                <button class="likes-modal-close" onclick="this.closest('.likes-modal').remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="likes-modal-list">
+                ${likes.length > 0 ?
+                    likes.map(like => `
+                        <div class="likes-modal-item">
+                            <div class="likes-modal-avatar">
+                                ${like.user_id ? like.user_id.charAt(0).toUpperCase() : 'U'}
+                            </div>
+                            <div>
+                                <div class="likes-modal-username">${escapeHtml(like.user_id || 'مستخدم')}</div>
+                                <div class="likes-modal-time">${getTimeAgo(like.created_at)}</div>
+                            </div>
+                        </div>
+                    `).join('') :
+                    '<div style="padding: 40px 20px; text-align: center; color: var(--sub-text);">لا توجد إعجابات بعد</div>'
+                }
+            </div>
+        </div>
+    `;
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+
+            document.body.appendChild(modal);
+        };
+
+        // دوال مساعدة للتعليقات
+        async function getCommentLikes(commentId) {
+            try {
+                const { count, error: countError } = await supabase
+                    .from('comment_likes')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('comment_id', commentId);
+
+                if (countError) throw countError;
+
+                let isLiked = false;
+                if (currentUser) {
+                    const userName = currentUser.name || currentUser.email || currentUser.username;
+                    const { data: userLike, error: likeError } = await supabase
+                        .from('comment_likes')
+                        .select('id')
+                        .eq('comment_id', commentId)
+                        .eq('user_id', userName)
+                        .single();
+
+                    if (!likeError && userLike) {
+                        isLiked = true;
+                    }
+                }
+
+                return {
+                    count: count || 0,
+                    isLiked: isLiked
+                };
+            } catch (error) {
+                console.error('❌ خطأ في جلب الإعجابات:', error);
+                return { count: 0, isLiked: false };
+            }
+        }
+
+        async function getLikesList(commentId) {
+            try {
+                const { data: likes, error } = await supabase
+                    .from('comment_likes')
+                    .select('user_id, created_at')
+                    .eq('comment_id', commentId)
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+                return likes || [];
+            } catch (error) {
+                console.error('❌ خطأ في جلب قائمة المعجبين:', error);
+                return [];
+            }
+        }
+
+        function setupCommentInteractions() {
+            const commentInput = document.getElementById('commentInput');
+            const submitBtn = document.getElementById('submitCommentBtn');
+
+            if (commentInput && submitBtn) {
+                commentInput.addEventListener('input', function () {
+                    submitBtn.disabled = this.value.trim().length === 0;
+                });
+
+                commentInput.addEventListener('keydown', function (e) {
+                    if (e.ctrlKey && e.key === 'Enter' && !submitBtn.disabled) {
+                        submitComment();
+                    }
+                });
+
+                submitBtn.addEventListener('click', submitComment);
+            }
+        }
+
+        async function submitComment() {
+            if (!currentUser) {
+                showNotification('يرجى تسجيل الدخول أولاً', 'info');
+                return;
+            }
+
+            const commentInput = document.getElementById('commentInput');
+            const commentText = commentInput.value.trim();
+
+            if (!commentText) return;
+
+            try {
+                const userName = currentUser.name || currentUser.email || currentUser.username || 'مستخدم';
+                const { error } = await supabase.from('comments').insert({
+                    page_id: currentPageId,
+                    username: userName,
+                    comment: commentText,
+                    parent_id: null
+                });
+
+                if (error) throw error;
+
+                commentInput.value = '';
+                document.getElementById('submitCommentBtn').disabled = true;
+                await loadComments(currentPageId);
+                showNotification('تم نشر تعليقك بنجاح', 'success');
+
+            } catch (error) {
+                console.error('❌ خطأ في إرسال التعليق:', error);
+                showNotification('فشل في نشر التعليق', 'error');
+            }
+        }
+
+        // إغلاق القوائم عند النقر خارجها
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.comment-actions-menu')) {
+                document.querySelectorAll('.comment-dropdown').forEach(d => {
+                    d.classList.remove('show');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

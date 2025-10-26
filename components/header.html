@@ -1,4 +1,5 @@
 <!-- components/header.html -->
+<link rel="stylesheet" href="assets/css/style.css">
 <header class="custom-header" role="banner">
     <div class="header-container container">
         <div style="display:flex;align-items:center;gap:.8rem">
@@ -13,6 +14,18 @@
         <ul class="nav-menu" role="navigation" aria-label="القائمة الرئيسية">
             <li><a href="../index.html">الرئيسية</a></li>
             <li><a href="../shopping.html">تسوق</a></li>
+            <!-- قائمة الدعم الفني الفرعية -->
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle">
+                    قسم المقلات
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="../fish.html">الأسماك</a></li>
+                    <li><a href="../baits.html">الطعوم</a></li>
+                    <li><a href="../gears.html">معدات الصيد</a></li>
+                </ul>
+            </li>
             <li><a href="../features.html">مميزات التطبيق</a></li>
             <li><a href="../about.html">من نحن</a></li>
             <li><a href="../index.html#stats">إحصائيات</a></li>
@@ -22,7 +35,6 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle">
                     الدعم
-                    <i class="fas fa-chevron-down" style="font-size: 12px; margin-right: 5px;"></i>
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="../support.html">الدعم الفني</a></li>
@@ -214,17 +226,6 @@
                     <button class="user-action-btn primary" id="store-settings-btn" style="display: none;">
                         <i class="fas fa-cog"></i>
                         تعديل بيانات المتجر
-                    </button>
-
-                    <!-- ⭐ زر التحديث الجديد -->
-                    <button class="user-action-btn secondary" id="refresh-data-btn">
-                        <i class="fas fa-sync-alt"></i>
-                        تحديث البيانات
-                    </button>
-
-                    <button class="user-action-btn secondary" id="manage-account">
-                        <i class="fas fa-cog"></i>
-                        إدارة الحساب
                     </button>
                     <button class="user-action-btn danger" id="logout-btn">
                         <i class="fas fa-sign-out-alt"></i>

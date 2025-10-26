@@ -1,0 +1,2191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مقال السمك - دليل الصيد الليبي</title>
+
+    <!-- خطوط وأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.38.0/dist/umd/supabase.min.js"></script>
+
+    <!-- الأنماط -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        /* أنماط صفحة المقال */
+        .article-content {
+            padding: 80px 0 60px;
+            min-height: 100vh;
+
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .article-header h1 {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .article-meta {
+            color: var(--sub-text);
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* صورة المقال */
+        .article-image {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin: 0 auto 40px;
+            display: block;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* محتوى المقال */
+        .article-body {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .article-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text);
+            margin-bottom: 30px;
+        }
+
+        .article-text h2 {
+            color: var(--primary);
+            margin: 30px 0 15px;
+            font-size: 28px;
+        }
+
+        .article-text h3 {
+            color: var(--accent);
+            margin: 25px 0 15px;
+            font-size: 22px;
+        }
+
+        .article-text p {
+            margin-bottom: 20px;
+        }
+
+        .article-text ul,
+        .article-text ol {
+            margin: 20px 0;
+            padding-right: 20px;
+        }
+
+        .article-text li {
+            margin-bottom: 10px;
+        }
+
+        /* معلومات السمكة */
+        .fish-info {
+            background: rgba(25, 118, 243, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            border-right: 4px solid var(--primary);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-item .label {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .info-item .value {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* أزرار المشاركة */
+        .article-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: "Tajawal", sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .like-btn {
+            background: linear-gradient(135deg, #FF4757, #FF3742);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+        }
+
+        .like-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4);
+        }
+
+        .share-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 5px 15px rgba(25, 118, 243, 0.3);
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(25, 118, 243, 0.4);
+        }
+
+        .back-btn {
+            background: var(--sub-text);
+            color: white;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4);
+        }
+
+        /* نظام التعليقات */
+        .comments-section {
+            margin-top: 30px;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+
+        .comments-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .comments-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .comments-count {
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .comment-form {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .comment-input-container {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .comment-input-wrapper {
+            flex: 1;
+        }
+
+        .comment-input {
+            width: 90%;
+            min-height: 80px;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 15px;
+            resize: vertical;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .comment-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(25, 118, 243, 0.1);
+        }
+
+        .comment-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        .comment-submit-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .comment-submit-btn:hover:not(:disabled) {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+
+        .comment-submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .login-prompt {
+            text-align: center;
+            padding: 20px;
+            background: var(--bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .login-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        /* قائمة التعليقات */
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .comment-item {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .comment-item:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .comment-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comment-user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .comment-user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .comment-username {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .comment-time {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .comment-actions-menu {
+            position: relative;
+        }
+
+        .comment-menu-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .comment-menu-btn:hover {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .comment-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            min-width: 120px;
+            display: none;
+        }
+
+        .comment-dropdown.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 14px;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: right;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .dropdown-item:hover {
+            background: var(--bg);
+        }
+
+        .dropdown-item.edit {
+            color: var(--accent);
+        }
+
+        .dropdown-item.delete {
+            color: #ff4757;
+        }
+
+        .comment-content {
+            margin: 8px 0;
+            line-height: 1.6;
+            font-size: 15px;
+            color: var(--text);
+        }
+
+        .comment-footer {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .comment-like-btn,
+        .comment-reply-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .comment-like-btn:hover,
+        .comment-reply-btn:hover {
+            color: var(--accent);
+        }
+
+        .comment-like-btn.liked {
+            color: #ff4757;
+        }
+
+        /* الردود */
+        .replies-section {
+            margin-top: 12px;
+            padding-right: 20px;
+            border-right: 2px solid var(--bg);
+        }
+
+        .reply-form {
+            margin: 12px 0;
+            padding: 12px;
+            background: var(--bg);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .reply-form.show {
+            display: block;
+        }
+
+        .reply-input {
+            width: 90%;
+            min-height: 60px;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+            resize: vertical;
+            margin-bottom: 8px;
+        }
+
+        .reply-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .reply-submit-btn,
+        .reply-cancel-btn {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .reply-submit-btn {
+            background: var(--accent);
+            color: white;
+        }
+
+        .reply-cancel-btn {
+            background: var(--bg);
+            color: var(--muted);
+        }
+
+        /* تحرير التعليق */
+        .comment-edit-form {
+            display: none;
+        }
+
+        .comment-edit-form.show {
+            display: block;
+        }
+
+        .edit-comment-input {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+            resize: vertical;
+            margin-bottom: 8px;
+        }
+
+        .edit-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .edit-save-btn,
+        .edit-cancel-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .edit-save-btn {
+            background: var(--accent);
+            color: white;
+        }
+
+        .edit-cancel-btn {
+            background: var(--bg);
+            color: var(--muted);
+        }
+
+        /* لا توجد تعليقات */
+        .no-comments {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--muted);
+        }
+
+        .no-comments-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        /* مقالات ذات صلة */
+        .related-articles {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            color: var(--accent);
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .article-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px var(--shadow-hover);
+        }
+
+        .article-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .article-card-content {
+            padding: 20px;
+        }
+
+        .article-card h3 {
+            color: var(--text);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .article-card p {
+            color: var(--sub-text);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* التجاوبية */
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 32px;
+            }
+
+            .article-body {
+                padding: 25px;
+            }
+
+            .article-text {
+                font-size: 16px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .article-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .comments-section {
+                padding: 25px;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* تأثيرات التحميل */
+        .loading {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--sub-text);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* الإشعارات */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: var(--radius);
+            padding: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid #4CAF50;
+            z-index: 10000;
+            max-width: 350px;
+            animation: slideInRight 0.3s ease, slideOutRight 0.3s ease 2.7s forwards;
+        }
+
+        .notification.error {
+            border-left-color: #ff4757;
+        }
+
+        .notification.info {
+            border-left-color: #1976f3;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- سيتم تحميل الهيدر تلقائياً هنا -->
+    <div id="header-container"></div>
+
+    <!-- محتوى الصفحة -->
+    <main class="page-content">
+        <section class="article-content">
+            <div class="container">
+                <!-- حاوية المقال -->
+                <div id="articleContainer">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>جاري تحميل المقال...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- سيتم تحميل الفوتر تلقائياً هنا -->
+    <div id="footer-container"></div>
+
+    <!-- السكريبتات -->
+    <script src="shared/config.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+// ==================== نظام المقالات والتعليقات الكامل ====================
+
+// ==================== تهيئة التطبيق ====================
+document.addEventListener('DOMContentLoaded', function () {
+    // انتظر تحميل main.js أولاً
+    setTimeout(() => {
+        initializeApp();
+    }, 100);
+});
+
+let supabase;
+let currentUser = null;
+let currentArticleId = null;
+let currentPageId = null;
+
+async function initializeApp() {
+    try {
+        // استخدام supabase الموجود من main.js لتجنب التكرار
+        if (window.supabaseClient) {
+            supabase = window.supabaseClient;
+            console.log('✅ Using existing Supabase client from main.js');
+        } else {
+            // إذا لم يكن موجوداً، استخدم المتغيرات العامة من config.js
+            supabase = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+            console.log('✅ Created new Supabase client using global variables');
+        }
+
+        // تحميل حالة المستخدم
+        await loadUserState();
+        
+        // تحميل المقال
+        await loadArticle();
+        
+        // إعداد مستمعي الأحداث
+        setupEventListeners();
+
+    } catch (error) {
+        console.error('❌ Error initializing app:', error);
+        showError('حدث خطأ في تحميل التطبيق');
+    }
+}
+
+// ==================== إدارة حالة المستخدم ====================
+async function loadUserState() {
+    try {
+        const userData = localStorage.getItem('user');
+        if (userData) {
+            currentUser = JSON.parse(userData);
+            console.log('✅ User loaded:', currentUser);
+        } else {
+            console.log('ℹ️ No user logged in');
+        }
+    } catch (error) {
+        console.error('❌ Error loading user:', error);
+        currentUser = null;
+    }
+}
+
+// ==================== نظام المقالات ====================
+async function loadArticle() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const articleId = urlParams.get('id');
+    const type = urlParams.get('type') || 'fish';
+
+    if (!articleId) {
+        showError('لم يتم تحديد معرف المقال');
+        return;
+    }
+
+    currentArticleId = articleId;
+    currentPageId = `${type}_${articleId}`;
+
+    try {
+        showLoading();
+        
+        let article = null;
+        let source = null;
+
+        // البحث في قاعدة البيانات
+        const tableName = getTableName(type);
+        if (tableName && supabase) {
+            const { data, error } = await supabase
+                .from(tableName)
+                .select('*')
+                .eq('id', articleId)
+                .single();
+
+            if (!error && data) {
+                article = data;
+                source = type;
+                console.log('✅ Article loaded from database:', article);
+            } else {
+                console.log('ℹ️ Article not found in database, checking localStorage');
+            }
+        }
+
+        // البحث في localStorage كنسخة احتياطية
+        if (!article) {
+            article = await searchInLocalStorage(articleId, type);
+            if (article) {
+                source = type;
+                console.log('✅ Article loaded from localStorage:', article);
+            }
+        }
+
+        if (!article) {
+            showError('المقال غير موجود');
+            return;
+        }
+
+        displayArticle(article, source);
+        await loadComments(currentPageId);
+
+    } catch (error) {
+        console.error('❌ Error loading article:', error);
+        showError('حدث خطأ في تحميل المقال');
+    }
+}
+
+function getTableName(type) {
+    const tables = {
+        'fish': 'fish_articles',
+        'bait': 'bait_articles',
+        'gear': 'gear_articles'
+    };
+    return tables[type] || 'fish_articles';
+}
+
+async function searchInLocalStorage(articleId, type) {
+    const storageKeys = {
+        'fish': 'fish_articles',
+        'bait': 'bait_articles',
+        'gear': 'gear_articles'
+    };
+
+    const key = storageKeys[type];
+    if (!key) return null;
+
+    try {
+        const articles = JSON.parse(localStorage.getItem(key) || "[]");
+        return articles.find(a => a.id == articleId) || null;
+    } catch (error) {
+        console.error('Error searching in localStorage:', error);
+        return null;
+    }
+}
+
+function displayArticle(article, source) {
+    const container = document.getElementById('articleContainer');
+    if (!container) {
+        console.error('❌ articleContainer not found');
+        return;
+    }
+
+    const title = article.title_ar || article.name || 'مقال بدون عنوان';
+    let content = article.content_html || article.content || '<p>لا يوجد محتوى متاح</p>';
+    const imageUrl = article.image_url || article.image || 'https://via.placeholder.com/800x400?text=لا+يوجد+صورة';
+    const description = article.description_ar || article.description || '';
+
+    // معالجة المحتوى
+    content = processContent(content);
+
+    const articleHTML = `
+        <article class="article-main">
+            <header class="article-header">
+                <h1>${escapeHtml(title)}</h1>
+                <div class="article-meta">
+                    <span><i class="fas fa-calendar"></i> ${formatDate(article.created_at)}</span>
+                    <span><i class="fas fa-eye"></i> ${article.views || 0} مشاهدة</span>
+                    <span><i class="fas fa-tag"></i> ${getCategoryName(source)}</span>
+                </div>
+            </header>
+
+            <img src="${imageUrl}" alt="${escapeHtml(title)}" class="article-image" 
+                 onerror="this.src='https://via.placeholder.com/800x400?text=خطأ+في+تحميل+الصورة'">
+
+            ${description ? `<div class="article-description">${escapeHtml(description)}</div>` : ''}
+
+            <div class="article-body">
+                <div class="article-content">${content}</div>
+                
+                ${article.fish_info ? renderFishInfo(article.fish_info) : ''}
+            </div>
+
+            <div class="article-actions">
+                <button class="btn like-btn" id="articleLikeBtn">
+                    <i class="far fa-heart"></i>
+                    <span id="likeCount">${article.likes || 0}</span>
+                </button>
+                <button class="btn share-btn" id="shareBtn">
+                    <i class="fas fa-share"></i>
+                    مشاركة
+                </button>
+                <button class="btn back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-right"></i>
+                    رجوع
+                </button>
+            </div>
+        </article>
+
+        <section class="comments-section" id="commentsSection">
+            <!-- سيتم تعبئته بالتعليقات -->
+        </section>
+
+        <!-- قسم المقالات ذات الصلة -->
+        <div id="relatedArticles">
+            <div class="loading-related">
+                <div class="loading-spinner"></div>
+                <p>جاري البحث عن مقالات ذات صلة...</p>
+                <p style="font-size: 12px; margin-top: 10px; color: var(--sub-text);">
+                    البحث في: "${title}"
+                </p>
+            </div>
+        </div>
+    `;
+
+    container.innerHTML = articleHTML;
+    setupArticleInteractions();
+    console.log('✅ Article displayed successfully');
+
+    // تحميل المقالات ذات الصلة بعد عرض المقال الرئيسي
+    setTimeout(() => {
+        console.log('🚀 Starting related articles search for:', title);
+        loadRelatedArticles(currentArticleId, article.category, source, title);
+    }, 1000);
+}
+
+function processContent(content) {
+    if (!content) return '<p>لا يوجد محتوى</p>';
+
+    // تحويل صور YouTube إلى فيديو
+    content = content.replace(
+        /<img[^>]*src=["']([^"']*i\.ytimg\.com[^"']*)["'][^>]*>/gi,
+        function(match, src) {
+            const videoIdMatch = src.match(/vi\/([a-zA-Z0-9_-]+)/);
+            if (videoIdMatch && videoIdMatch[1]) {
+                return `
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/${videoIdMatch[1]}" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>`;
+            }
+            return match;
+        }
+    );
+
+    // تحسين iframes
+    content = content.replace(
+        /<iframe([^>]*)><\/iframe>/gi,
+        '<div class="video-wrapper"><iframe$1 allowfullscreen></iframe></div>'
+    );
+
+    return content;
+}
+
+function renderFishInfo(fishInfo) {
+    if (!fishInfo) return '';
+
+    const info = typeof fishInfo === 'string' ? JSON.parse(fishInfo) : fishInfo;
+    
+    return `
+        <div class="fish-info">
+            <h3><i class="fas fa-fish"></i> معلومات عن السمكة</h3>
+            <div class="info-grid">
+                ${Object.entries(info).map(([key, value]) => `
+                    <div class="info-item">
+                        <span class="label">${escapeHtml(key)}</span>
+                        <span class="value">${escapeHtml(value)}</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+// ==================== نظام المقالات ذات الصلة المحسّن ====================
+async function loadRelatedArticles(currentArticleId, category, type = 'fish', currentArticleTitle = '') {
+    try {
+        const relatedContainer = document.getElementById('relatedArticles');
+        if (!relatedContainer) return;
+
+        console.log('🔍 Starting related articles search...');
+        console.log('📝 Current article:', currentArticleTitle);
+        console.log('🎯 ID:', currentArticleId, 'Type:', type);
+
+        let relatedArticles = [];
+
+        // المحاولة 1: البحث في نفس النوع مع الكلمات المفتاحية
+        const sameTypeArticles = await getRelatedFromLocalStorage(currentArticleId, category, type, currentArticleTitle);
+        if (sameTypeArticles.length > 0) {
+            relatedArticles = sameTypeArticles.slice(0, 3);
+            console.log('✅ Found in same type:', relatedArticles.length);
+        }
+
+        // المحاولة 2: إذا لم ينجح، ابحث في جميع الأنواع
+        if (relatedArticles.length === 0) {
+            console.log('🔍 Expanding search to all types...');
+            const allTypesArticles = await searchInAllArticles(currentArticleId, currentArticleTitle);
+            if (allTypesArticles.length > 0) {
+                relatedArticles = allTypesArticles.slice(0, 3);
+                console.log('✅ Found in all types:', relatedArticles.length);
+            }
+        }
+
+        // المحاولة 3: إذا لم ينجح، اختر مقالات عشوائية من نفس النوع
+        if (relatedArticles.length === 0) {
+            console.log('🎲 Selecting random articles from same type...');
+            const randomArticles = await getRelatedFromLocalStorage(currentArticleId, category, type, '');
+            relatedArticles = randomArticles.slice(0, 3);
+            console.log('✅ Random articles found:', relatedArticles.length);
+        }
+
+        console.log('🎯 Final results:', relatedArticles);
+
+        if (relatedArticles.length === 0) {
+            showNoRelatedArticles(relatedContainer, currentArticleTitle, type, currentArticleId);
+            return;
+        }
+
+        displayRelatedArticles(relatedArticles, type);
+
+    } catch (error) {
+        console.error('❌ Error in loadRelatedArticles:', error);
+        showErrorRelatedArticles(error);
+    }
+}
+
+// البحث في جميع المقالات بغض النظر عن النوع
+async function searchInAllArticles(currentArticleId, currentArticleTitle) {
+    try {
+        console.log('🌐 Searching in all article types...');
+        const allTypes = ['fish', 'bait', 'gear'];
+        let allArticles = [];
+
+        for (const type of allTypes) {
+            const articles = await getRelatedFromLocalStorage(currentArticleId, '', type, currentArticleTitle);
+            allArticles = allArticles.concat(articles);
+        }
+
+        // إزالة التكرارات وترتيب حسب الدرجة
+        const uniqueArticles = removeDuplicates(allArticles);
+        uniqueArticles.sort((a, b) => b.score - a.score);
+        
+        console.log('🌐 Found in all types:', uniqueArticles.length);
+        return uniqueArticles.slice(0, 3);
+        
+    } catch (error) {
+        console.error('❌ Error searching in all articles:', error);
+        return [];
+    }
+}
+
+// البحث في localStorage
+async function getRelatedFromLocalStorage(currentArticleId, category, type, currentArticleTitle = '') {
+    const storageKeys = {
+        'fish': 'fish_articles',
+        'bait': 'bait_articles',
+        'gear': 'gear_articles'
+    };
+
+    const key = storageKeys[type];
+    if (!key) {
+        console.log('❌ No storage key for type:', type);
+        return [];
+    }
+
+    try {
+        const articles = JSON.parse(localStorage.getItem(key) || "[]");
+        console.log('📚 Total articles in localStorage:', articles.length);
+        
+        if (articles.length === 0) {
+            console.log('❌ No articles found in localStorage for key:', key);
+            return [];
+        }
+
+        // إذا كان هناك عنوان، ابحث بالكلمات المفتاحية
+        if (currentArticleTitle) {
+            const keywords = extractKeywords(currentArticleTitle);
+            console.log('🔑 Keywords for search:', keywords);
+            
+            const scoredArticles = [];
+
+            articles.forEach(article => {
+                if (article.id != currentArticleId) {
+                    let totalScore = 0;
+                    
+                    // حساب الدرجة لكل كلمة مفتاحية
+                    keywords.forEach(keyword => {
+                        const score = calculateRelevanceScore(article, keyword, keywords);
+                        totalScore += score;
+                    });
+
+                    if (totalScore > 0) {
+                        scoredArticles.push({ 
+                            ...article, 
+                            score: totalScore,
+                            type: type,
+                            title: article.title_ar || article.name,
+                            image: article.image_url || article.image,
+                            description: article.description_ar || article.description
+                        });
+                    }
+                }
+            });
+
+            console.log('📊 Articles found with keywords:', scoredArticles.length);
+            scoredArticles.sort((a, b) => b.score - a.score);
+            return scoredArticles;
+        }
+
+        // إذا لم يكن هناك عنوان، اختر عشوائياً
+        console.log('🎲 Selecting random articles...');
+        const filteredArticles = articles
+            .filter(article => article.id != currentArticleId)
+            .slice(0, 6)
+            .map(article => ({
+                id: article.id,
+                title: article.title_ar || article.name,
+                image: article.image_url || article.image,
+                description: article.description_ar || article.description,
+                type: type,
+                score: 1
+            }));
+
+        console.log('📦 Random articles selected:', filteredArticles.length);
+        return filteredArticles;
+
+    } catch (error) {
+        console.error('❌ Error getting related from localStorage:', error);
+        return [];
+    }
+}
+
+// استخراج الكلمات المفتاحية من العنوان
+function extractKeywords(title) {
+    if (!title) {
+        console.log('❌ No title provided for keyword extraction');
+        return [];
+    }
+    
+    console.log('🔤 Original title:', title);
+    
+    // قائمة بكلمات التوقف الموسعة
+    const stopWords = [
+        'سمك', 'السمك', 'سمكة', 'السمكة', 'عن', 'في', 'من', 'الى', 'إلى', 'على', 'علي', 'عليه', 
+        'و', 'او', 'أو', 'هل', 'ما', 'ماذا', 'كيف', 'لماذا', 'أن', 'إن', 'إذا', 'لكن', 'بل', 
+        'حتى', 'قد', 'سوف', 'كان', 'يكون', 'هي', 'هو', 'هم', 'كن', 'ذلك', 'هذا', 'هذه', 'هؤلاء',
+        'أي', 'أين', 'متى', 'كم', 'أيضا', 'also', 'the', 'a', 'an'
+    ];
+    
+    // تنظيف النص وإزالة التشكيل
+    const cleanText = title
+        .replace(/[ًٌٍَُِّْ]/g, '')
+        .replace(/[^\w\u0600-\u06FF\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
+    
+    console.log('🧹 Cleaned title:', cleanText);
+    
+    // تقسيم النص إلى كلمات
+    const words = cleanText.split(/\s+/);
+    console.log('📝 Split words:', words);
+    
+    // تصفية الكلمات المهمة
+    const keywords = words
+        .filter(word => 
+            word.length > 2 &&
+            !stopWords.includes(word) &&
+            !word.match(/^\d+$/)
+        )
+        .slice(0, 8);
+    
+    console.log('🎯 Final keywords:', keywords);
+    
+    // إذا لم نجد كلمات مفتاحية، نأخذ أول كلمتين طويلتين
+    if (keywords.length === 0) {
+        const fallbackKeywords = words
+            .filter(word => word.length > 3)
+            .slice(0, 2);
+        console.log('🔄 Using fallback keywords:', fallbackKeywords);
+        return fallbackKeywords;
+    }
+    
+    return keywords;
+}
+
+// حساب درجة الصلة
+function calculateRelevanceScore(article, keyword, allKeywords) {
+    let score = 0;
+    
+    const title = (article.title_ar || article.name || '').toLowerCase();
+    const description = (article.description_ar || article.description || '').toLowerCase();
+    
+    console.log(`🔍 Checking keyword "${keyword}" in article:`, title);
+
+    // الوزن الأعلى للعنوان
+    if (title.includes(keyword)) {
+        score += 15;
+        console.log(`✅ Keyword "${keyword}" found in title - Score: +15`);
+    }
+    
+    // الوزن المتوسط للوصف
+    if (description.includes(keyword)) {
+        score += 8;
+        console.log(`✅ Keyword "${keyword}" found in description - Score: +8`);
+    }
+
+    // نقاط إضافية إذا كانت الكلمة في بداية العنوان
+    if (title.startsWith(keyword)) {
+        score += 10;
+        console.log(`✅ Keyword "${keyword}" at start of title - Score: +10`);
+    }
+
+    // نقاط إضافية إذا كانت الكلمة مطابقة تماماً
+    if (title === keyword) {
+        score += 20;
+        console.log(`✅ Exact title match - Score: +20`);
+    }
+
+    // نقاط إضافية لكل كلمة مفتاحية متطابقة
+    const matchingKeywords = allKeywords.filter(kw => 
+        title.includes(kw) || description.includes(kw)
+    );
+    score += matchingKeywords.length * 5;
+    
+    console.log(`📊 Total score for keyword "${keyword}": ${score}`);
+    
+    return score;
+}
+
+// إزالة المقالات المكررة
+function removeDuplicates(articles) {
+    const seen = new Set();
+    return articles.filter(article => {
+        if (seen.has(article.id)) {
+            return false;
+        }
+        seen.add(article.id);
+        return true;
+    });
+}
+
+// عرض المقالات ذات الصلة
+function displayRelatedArticles(articles, type) {
+    const relatedContainer = document.getElementById('relatedArticles');
+    if (!relatedContainer) return;
+
+    const articlesHTML = articles.map((article, index) => {
+        const isHighlyRelevant = article.score > 15;
+        const relevanceBadge = isHighlyRelevant ? '<span class="relevance-badge">عالية الصلة</span>' : '';
+        
+        return `
+        <div class="article-card" onclick="openRelatedArticle(${article.id}, '${type}')">
+            ${isHighlyRelevant ? `
+                <div class="article-card-relevance">
+                    ${relevanceBadge}
+                    <span style="color: var(--accent); font-size: 12px;">مقال مشابه جداً</span>
+                </div>
+            ` : ''}
+            <div class="article-card-image">
+                <img src="${article.image_url || article.image || 'https://via.placeholder.com/300x200?text=لا+يوجد+صورة'}" 
+                     alt="${escapeHtml(article.title_ar || article.name)}"
+                     onerror="this.src='https://via.placeholder.com/300x200?text=خطأ+في+تحميل+الصورة'">
+                <div class="article-card-overlay">
+                    <i class="fas fa-eye"></i>
+                </div>
+            </div>
+            <div class="article-card-content">
+                <h3 class="article-card-title">${escapeHtml(article.title_ar || article.name)}</h3>
+                <p class="article-card-description">${escapeHtml(article.description_ar || article.description || 'وصف المقال...')}</p>
+                <div class="article-card-meta">
+                    <span class="article-type">${getCategoryName(type)}</span>
+                    <button class="article-read-btn">
+                        اقرأ المزيد <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        `;
+    }).join('');
+
+    relatedContainer.innerHTML = `
+        <div class="related-articles-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-link"></i>
+                    مقالات ذات صلة
+                </h2>
+                <p class="section-subtitle">اكتشف المزيد من المقالات المشابهة</p>
+            </div>
+            <div class="articles-grid">
+                ${articlesHTML}
+            </div>
+        </div>
+    `;
+}
+
+// فتح المقال ذو الصلة
+function openRelatedArticle(articleId, type) {
+    // حفظ الصفحة الحالية للعودة إليها
+    const currentPage = window.location.href;
+    localStorage.setItem('lastArticlePage', currentPage);
+    
+    // الانتقال إلى المقال الجديد
+    window.location.href = `article.html?id=${articleId}&type=${type}`;
+}
+
+// عرض رسالة عدم وجود مقالات
+function showNoRelatedArticles(container, title, type, id) {
+    container.innerHTML = `
+        <div class="no-related-articles">
+            <i class="fas fa-search" style="font-size: 48px; color: var(--sub-text); margin-bottom: 20px;"></i>
+            <h3 style="color: var(--sub-text); margin-bottom: 10px;">لم نتمكن من العثور على مقالات ذات صلة</h3>
+            <div style="text-align: right; color: var(--sub-text); font-size: 14px; margin-top: 15px; background: var(--bg); padding: 15px; border-radius: 10px;">
+                <strong>معلومات البحث:</strong><br>
+                العنوان: ${title}<br>
+                النوع: ${type}<br>
+                المعرف: ${id}<br>
+                الوقت: ${new Date().toLocaleTimeString('ar-SA')}
+            </div>
+            <button class="btn" onclick="retryRelatedSearch()" style="margin-top: 20px;">
+                <i class="fas fa-redo"></i> إعادة المحاولة
+            </button>
+        </div>
+    `;
+}
+
+// عرض رسالة الخطأ
+function showErrorRelatedArticles(error) {
+    const relatedContainer = document.getElementById('relatedArticles');
+    if (relatedContainer) {
+        relatedContainer.innerHTML = `
+            <div class="error-related">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>حدث خطأ في تحميل المقالات ذات الصلة</p>
+                <p style="font-size: 12px; margin-top: 10px;">${error.message}</p>
+            </div>
+        `;
+    }
+}
+
+// إعادة المحاولة
+function retryRelatedSearch() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const articleId = urlParams.get('id');
+    const type = urlParams.get('type') || 'fish';
+    
+    const articleTitle = document.querySelector('.article-header h1')?.textContent || '';
+    
+    loadRelatedArticles(articleId, '', type, articleTitle);
+}
+
+// ==================== نظام التعليقات ====================
+async function loadComments(pageId) {
+    if (!pageId) return;
+
+    try {
+        const { data: comments, error } = await supabase
+            .from('comments')
+            .select('*')
+            .eq('page_id', pageId)
+            .order('created_at', { ascending: true });
+
+        if (error) throw error;
+
+        renderCommentsSection(comments || []);
+
+    } catch (error) {
+        console.error('❌ Error loading comments:', error);
+        renderCommentsSection([]);
+    }
+}
+
+async function renderCommentsSection(comments) {
+    const commentsSection = document.getElementById('commentsSection');
+    if (!commentsSection) return;
+
+    const commentsCount = comments.length;
+    const rootComments = comments.filter(c => !c.parent_id);
+
+    commentsSection.innerHTML = `
+        <div class="comments-header">
+            <h3 class="comments-title">
+                <i class="fas fa-comments"></i>
+                التعليقات
+            </h3>
+            <span class="comments-count">${commentsCount}</span>
+        </div>
+        
+        ${renderCommentForm()}
+        
+        <div class="comments-list" id="commentsList">
+            ${rootComments.length > 0 ? 
+                await Promise.all(rootComments.map(comment => renderCommentItem(comment, comments)))
+                    .then(html => html.join('')) :
+                '<div class="no-comments"><div class="no-comments-icon">💬</div><p>لا توجد تعليقات بعد</p><p>كن أول من يعلق!</p></div>'
+            }
+        </div>
+    `;
+
+    setupCommentsInteractions();
+}
+
+function renderCommentForm() {
+    if (!currentUser) {
+        return `
+            <div class="login-prompt">
+                <p><i class="fas fa-info-circle"></i> يرجى تسجيل الدخول لإضافة تعليق</p>
+                <button class="login-btn" onclick="goToLogin()">
+                    <i class="fas fa-sign-in-alt"></i>
+                    تسجيل الدخول
+                </button>
+            </div>
+        `;
+    }
+
+    const userName = currentUser.name || currentUser.email || currentUser.username || 'مستخدم';
+    const userInitial = userName.charAt(0).toUpperCase();
+
+    return `
+        <div class="comment-form">
+            <div class="comment-input-container">
+                <div class="user-avatar">${userInitial}</div>
+                <div class="comment-input-wrapper">
+                    <textarea 
+                        class="comment-input" 
+                        id="commentInput" 
+                        placeholder="اكتب تعليقك..." 
+                        rows="3"
+                    ></textarea>
+                    <div class="comment-actions">
+                        <button class="comment-submit-btn" id="submitCommentBtn" disabled>
+                            <i class="fas fa-paper-plane"></i>
+                            نشر التعليق
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+async function renderCommentItem(comment, allComments) {
+    const userInitial = comment.username ? comment.username.charAt(0).toUpperCase() : 'م';
+    const isOwner = currentUser && (currentUser.name === comment.username || currentUser.email === comment.username);
+    const replies = allComments.filter(c => c.parent_id === comment.id);
+    const timeAgo = getTimeAgo(comment.created_at);
+    
+    const likesData = await getCommentLikes(comment.id);
+    const likesCount = likesData.count;
+    const isLiked = likesData.isLiked;
+
+    return `
+        <div class="comment-item" data-comment-id="${comment.id}">
+            <div class="comment-header">
+                <div class="comment-user">
+                    <div class="comment-user-avatar">${userInitial}</div>
+                    <div class="comment-user-info">
+                        <div class="comment-username">${escapeHtml(comment.username || 'مستخدم')}</div>
+                        <div class="comment-time">${timeAgo}</div>
+                    </div>
+                </div>
+                ${isOwner ? `
+                    <div class="comment-actions-menu">
+                        <button class="comment-menu-btn" onclick="toggleCommentMenu(this)">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                        <div class="comment-dropdown">
+                            <button class="dropdown-item edit" onclick="editComment('${comment.id}')">
+                                <i class="fas fa-edit"></i>
+                                تعديل
+                            </button>
+                            <button class="dropdown-item delete" onclick="deleteComment('${comment.id}')">
+                                <i class="fas fa-trash"></i>
+                                حذف
+                            </button>
+                        </div>
+                    </div>
+                ` : ''}
+            </div>
+            
+            <div class="comment-content" id="commentContent-${comment.id}">
+                ${escapeHtml(comment.comment)}
+            </div>
+            
+            <div class="comment-edit-form" id="editForm-${comment.id}">
+                <textarea class="edit-comment-input" id="editInput-${comment.id}">${escapeHtml(comment.comment)}</textarea>
+                <div class="edit-actions">
+                    <button class="edit-cancel-btn" onclick="cancelEdit('${comment.id}')">إلغاء</button>
+                    <button class="edit-save-btn" onclick="saveComment('${comment.id}')">حفظ</button>
+                </div>
+            </div>
+            
+            <div class="comment-footer">
+                <button class="comment-like-btn ${isLiked ? 'liked' : ''}" 
+                        onclick="toggleLike('${comment.id}')"
+                        ${likesCount > 0 ? `oncontextmenu="showLikesModal('${comment.id}'); return false;"` : ''}>
+                    <i class="${isLiked ? 'fas' : 'far'} fa-heart"></i>
+                    <span class="like-count">${likesCount > 0 ? likesCount : ''}</span>
+                    <span>${likesCount === 1 ? 'إعجاب' : 'إعجاب'}</span>
+                </button>
+                <button class="comment-reply-btn" onclick="showReplyForm('${comment.id}')">
+                    <i class="far fa-comment"></i>
+                    رد
+                </button>
+            </div>
+            
+            <div class="reply-form" id="replyForm-${comment.id}">
+                <textarea class="reply-input" id="replyInput-${comment.id}" placeholder="اكتب ردك..."></textarea>
+                <div class="reply-actions">
+                    <button class="reply-cancel-btn" onclick="hideReplyForm('${comment.id}')">إلغاء</button>
+                    <button class="reply-submit-btn" onclick="submitReply('${comment.id}')">رد</button>
+                </div>
+            </div>
+            
+            ${replies.length > 0 ? `
+                <div class="replies-section">
+                    ${await Promise.all(replies.map(reply => renderCommentItem(reply, allComments)))
+                        .then(repliesHTML => repliesHTML.join(''))}
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
+
+// ==================== إدارة الإعجابات ====================
+async function getCommentLikes(commentId) {
+    try {
+        const { count, error: countError } = await supabase
+            .from('comment_likes')
+            .select('*', { count: 'exact', head: true })
+            .eq('comment_id', commentId);
+
+        if (countError) throw countError;
+
+        let isLiked = false;
+        if (currentUser) {
+            const userName = currentUser.name || currentUser.email || currentUser.username;
+            const { data: userLike, error: likeError } = await supabase
+                .from('comment_likes')
+                .select('id')
+                .eq('comment_id', commentId)
+                .eq('user_id', userName)
+                .single();
+
+            if (!likeError && userLike) {
+                isLiked = true;
+            }
+        }
+
+        return {
+            count: count || 0,
+            isLiked: isLiked
+        };
+    } catch (error) {
+        console.error('❌ Error getting comment likes:', error);
+        return { count: 0, isLiked: false };
+    }
+}
+
+async function toggleLike(commentId) {
+    if (!currentUser) {
+        showNotification('يرجى تسجيل الدخول أولاً', 'info');
+        goToLogin();
+        return;
+    }
+
+    try {
+        const userName = currentUser.name || currentUser.email || currentUser.username;
+        
+        const { data: existingLike, error: checkError } = await supabase
+            .from('comment_likes')
+            .select('id')
+            .eq('comment_id', commentId)
+            .eq('user_id', userName)
+            .single();
+
+        if (checkError && checkError.code !== 'PGRST116') throw checkError;
+
+        if (existingLike) {
+            // إلغاء الإعجاب
+            const { error: deleteError } = await supabase
+                .from('comment_likes')
+                .delete()
+                .eq('id', existingLike.id);
+
+            if (deleteError) throw deleteError;
+            
+            showNotification('تم إزالة الإعجاب', 'info');
+        } else {
+            // إضافة إعجاب
+            const { error: insertError } = await supabase
+                .from('comment_likes')
+                .insert({
+                    comment_id: commentId,
+                    user_id: userName
+                });
+
+            if (insertError) throw insertError;
+            
+            showNotification('تم الإعجاب بالتعليق', 'success');
+        }
+
+        await loadComments(currentPageId);
+        
+    } catch (error) {
+        console.error('❌ Error toggling like:', error);
+        showNotification('فشل في تحديث الإعجاب', 'error');
+    }
+}
+
+async function getLikesList(commentId) {
+    try {
+        const { data: likes, error } = await supabase
+            .from('comment_likes')
+            .select('user_id, created_at')
+            .eq('comment_id', commentId)
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        return likes || [];
+    } catch (error) {
+        console.error('❌ Error getting likes list:', error);
+        return [];
+    }
+}
+
+// ==================== إدارة التعليقات ====================
+async function submitComment() {
+    if (!currentUser) {
+        showNotification('يرجى تسجيل الدخول أولاً', 'info');
+        goToLogin();
+        return;
+    }
+
+    const commentInput = document.getElementById('commentInput');
+    const commentText = commentInput.value.trim();
+    
+    if (!commentText) {
+        showNotification('يرجى كتابة تعليق', 'info');
+        return;
+    }
+
+    try {
+        const userName = currentUser.name || currentUser.email || currentUser.username || 'مستخدم';
+        
+        const { error } = await supabase.from('comments').insert({
+            page_id: currentPageId,
+            username: userName,
+            comment: commentText,
+            parent_id: null
+        });
+
+        if (error) throw error;
+
+        commentInput.value = '';
+        document.getElementById('submitCommentBtn').disabled = true;
+        await loadComments(currentPageId);
+        
+        showNotification('تم نشر تعليقك بنجاح', 'success');
+        
+    } catch (error) {
+        console.error('❌ Error submitting comment:', error);
+        showNotification('فشل في نشر التعليق', 'error');
+    }
+}
+
+async function submitReply(parentId) {
+    if (!currentUser) {
+        showNotification('يرجى تسجيل الدخول أولاً', 'info');
+        goToLogin();
+        return;
+    }
+
+    const replyInput = document.getElementById(`replyInput-${parentId}`);
+    const replyText = replyInput.value.trim();
+    
+    if (!replyText) {
+        showNotification('يرجى كتابة رد', 'info');
+        return;
+    }
+
+    try {
+        const userName = currentUser.name || currentUser.email || currentUser.username || 'مستخدم';
+        
+        const { error } = await supabase.from('comments').insert({
+            page_id: currentPageId,
+            username: userName,
+            comment: replyText,
+            parent_id: parentId
+        });
+
+        if (error) throw error;
+
+        replyInput.value = '';
+        hideReplyForm(parentId);
+        await loadComments(currentPageId);
+        
+        showNotification('تم نشر ردك بنجاح', 'success');
+        
+    } catch (error) {
+        console.error('❌ Error submitting reply:', error);
+        showNotification('فشل في نشر الرد', 'error');
+    }
+}
+
+async function editComment(commentId) {
+    document.getElementById(`commentContent-${commentId}`).style.display = 'none';
+    document.getElementById(`editForm-${commentId}`).classList.add('show');
+    
+    document.querySelectorAll('.comment-dropdown').forEach(d => {
+        d.classList.remove('show');
+    });
+}
+
+function cancelEdit(commentId) {
+    document.getElementById(`commentContent-${commentId}`).style.display = 'block';
+    document.getElementById(`editForm-${commentId}`).classList.remove('show');
+}
+
+async function saveComment(commentId) {
+    const editInput = document.getElementById(`editInput-${commentId}`);
+    const newText = editInput.value.trim();
+    
+    if (!newText) {
+        showNotification('لا يمكن أن يكون التعليق فارغاً', 'error');
+        return;
+    }
+
+    try {
+        const { error } = await supabase
+            .from('comments')
+            .update({ comment: newText })
+            .eq('id', commentId);
+
+        if (error) throw error;
+
+        document.getElementById(`commentContent-${commentId}`).innerHTML = escapeHtml(newText);
+        cancelEdit(commentId);
+        
+        showNotification('تم تعديل التعليق بنجاح', 'success');
+        
+    } catch (error) {
+        console.error('❌ Error saving comment:', error);
+        showNotification('فشل في تعديل التعليق', 'error');
+    }
+}
+
+async function deleteComment(commentId) {
+    if (!confirm('هل أنت متأكد من حذف هذا التعليق؟')) return;
+
+    try {
+        const { error } = await supabase
+            .from('comments')
+            .delete()
+            .eq('id', commentId);
+
+        if (error) throw error;
+
+        await loadComments(currentPageId);
+        
+        showNotification('تم حذف التعليق بنجاح', 'success');
+        
+    } catch (error) {
+        console.error('❌ Error deleting comment:', error);
+        showNotification('فشل في حذف التعليق', 'error');
+    }
+}
+
+// ==================== أدوات مساعدة ====================
+function setupEventListeners() {
+    // تحديث حالة المستخدم عند التغيير
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'user') {
+            loadUserState();
+        }
+    });
+}
+
+function setupArticleInteractions() {
+    // زر الإعجاب بالمقال
+    const likeBtn = document.getElementById('articleLikeBtn');
+    if (likeBtn) {
+        likeBtn.addEventListener('click', likeArticle);
+    }
+
+    // زر المشاركة
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) {
+        shareBtn.addEventListener('click', shareArticle);
+    }
+
+    // إضافة زر العودة للمقال السابق
+    addBackToPreviousArticle();
+}
+
+function setupCommentsInteractions() {
+    const commentInput = document.getElementById('commentInput');
+    const submitBtn = document.getElementById('submitCommentBtn');
+    
+    if (commentInput && submitBtn) {
+        commentInput.addEventListener('input', function() {
+            submitBtn.disabled = this.value.trim().length === 0;
+        });
+        
+        commentInput.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter' && !submitBtn.disabled) {
+                submitComment();
+            }
+        });
+        
+        submitBtn.addEventListener('click', submitComment);
+    }
+}
+
+function toggleCommentMenu(button) {
+    const dropdown = button.nextElementSibling;
+    const allDropdowns = document.querySelectorAll('.comment-dropdown');
+    
+    allDropdowns.forEach(d => {
+        if (d !== dropdown) d.classList.remove('show');
+    });
+    
+    dropdown.classList.toggle('show');
+}
+
+// إغلاق القوائم عند النقر خارجها
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.comment-actions-menu')) {
+        document.querySelectorAll('.comment-dropdown').forEach(d => {
+            d.classList.remove('show');
+        });
+    }
+});
+
+function showReplyForm(commentId) {
+    if (!currentUser) {
+        showNotification('يرجى تسجيل الدخول أولاً', 'info');
+        goToLogin();
+        return;
+    }
+    
+    document.querySelectorAll('.reply-form').forEach(form => {
+        form.classList.remove('show');
+    });
+    document.getElementById(`replyForm-${commentId}`).classList.add('show');
+}
+
+function hideReplyForm(commentId) {
+    document.getElementById(`replyForm-${commentId}`).classList.remove('show');
+}
+
+function addBackToPreviousArticle() {
+    const lastArticlePage = localStorage.getItem('lastArticlePage');
+    if (lastArticlePage && lastArticlePage !== window.location.href) {
+        const articleActions = document.querySelector('.article-actions');
+        if (articleActions) {
+            const backBtn = document.createElement('button');
+            backBtn.className = 'btn back-btn';
+            backBtn.innerHTML = '<i class="fas fa-arrow-right"></i> العودة للمقال السابق';
+            backBtn.onclick = function() {
+                window.location.href = lastArticlePage;
+            };
+            articleActions.appendChild(backBtn);
+        }
+    }
+}
+
+// ==================== الإشعارات ====================
+function showNotification(message, type = 'info') {
+    // إزالة أي إشعارات موجودة
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+
+    const icons = {
+        success: '✅',
+        error: '❌',
+        info: '💡'
+    };
+
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <div class="notification-icon">${icons[type]}</div>
+            <div class="notification-message">${message}</div>
+        </div>
+    `;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 3000);
+}
+
+// ==================== أدوات مساعدة ====================
+function escapeHtml(text) {
+    if (!text) return "";
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function formatDate(dateString) {
+    if (!dateString) return 'غير محدد';
+    try {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('ar-SA', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    } catch (error) {
+        return 'غير محدد';
+    }
+}
+
+function getTimeAgo(dateString) {
+    if (!dateString) return 'غير محدد';
+    
+    try {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diffMs = now - date;
+        const diffMins = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
+
+        if (diffMins < 1) return 'الآن';
+        if (diffMins < 60) return `قبل ${diffMins} دقيقة`;
+        if (diffHours < 24) return `قبل ${diffHours} ساعة`;
+        if (diffDays < 7) return `قبل ${diffDays} يوم`;
+        
+        return date.toLocaleDateString('ar-SA');
+    } catch (error) {
+        return 'غير محدد';
+    }
+}
+
+function getCategoryName(type) {
+    const categories = {
+        'fish': 'الأسماك',
+        'bait': 'الطعم',
+        'gear': 'معدات الصيد'
+    };
+    return categories[type] || 'مقال';
+}
+
+function showLoading() {
+    const container = document.getElementById('articleContainer');
+    if (container) {
+        container.innerHTML = `
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>جاري تحميل المقال...</p>
+            </div>
+        `;
+    }
+}
+
+function showError(message) {
+    const container = document.getElementById('articleContainer');
+    if (container) {
+        container.innerHTML = `
+            <div class="error-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>${message}</h3>
+                <p>حدث خطأ في تحميل المقال. يرجى المحاولة مرة أخرى.</p>
+                <button class="btn back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-right"></i>
+                    العودة للخلف
+                </button>
+            </div>
+        `;
+    }
+}
+
+function goBack() {
+    window.history.back();
+}
+
+function goToLogin() {
+    window.location.href = 'login.html?return=' + encodeURIComponent(window.location.href);
+}
+
+async function likeArticle() {
+    if (!currentUser) {
+        showNotification('يرجى تسجيل الدخول أولاً', 'info');
+        goToLogin();
+        return;
+    }
+    // تنفيذ منطق الإعجاب بالمقال
+    showNotification('تم الإعجاب بالمقال', 'success');
+}
+
+async function shareArticle() {
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: document.title,
+                text: 'اطلع على هذا المقال الرائع',
+                url: window.location.href,
+            });
+        } catch (error) {
+            console.log('تم إلغاء المشاركة');
+        }
+    } else {
+        // نسخ الرابط
+        navigator.clipboard.writeText(window.location.href);
+        showNotification('تم نسخ رابط المقال', 'success');
+    }
+}
+
+// ==================== تعريف الدوال في النطاق العام ====================
+window.toggleCommentMenu = toggleCommentMenu;
+window.editComment = editComment;
+window.cancelEdit = cancelEdit;
+window.saveComment = saveComment;
+window.deleteComment = deleteComment;
+window.showReplyForm = showReplyForm;
+window.hideReplyForm = hideReplyForm;
+window.submitReply = submitReply;
+window.toggleLike = toggleLike;
+window.showLikesModal = async function(commentId) {
+    const likes = await getLikesList(commentId);
+    
+    const modal = document.createElement('div');
+    modal.className = 'likes-modal';
+    modal.innerHTML = `
+        <div class="likes-modal-content">
+            <div class="likes-modal-header">
+                <h3 class="likes-modal-title">المعجبون</h3>
+                <button class="likes-modal-close" onclick="this.closest('.likes-modal').remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="likes-modal-list">
+                ${likes.length > 0 ? 
+                    likes.map(like => `
+                        <div class="likes-modal-item">
+                            <div class="likes-modal-avatar">
+                                ${like.user_id ? like.user_id.charAt(0).toUpperCase() : 'U'}
+                            </div>
+                            <div>
+                                <div class="likes-modal-username">${escapeHtml(like.user_id || 'مستخدم')}</div>
+                                <div class="likes-modal-time">${getTimeAgo(like.created_at)}</div>
+                            </div>
+                        </div>
+                    `).join('') :
+                    '<div style="padding: 40px 20px; text-align: center; color: var(--muted);">لا توجد إعجابات بعد</div>'
+                }
+            </div>
+        </div>
+    `;
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    });
+
+    document.body.appendChild(modal);
+};
+
+window.goToLogin = goToLogin;
+window.goBack = goBack;
+window.openRelatedArticle = openRelatedArticle;
+window.retryRelatedSearch = retryRelatedSearch;
+
+console.log('✅ Enhanced article system with related articles loaded successfully');
+    </script>
+</body>
+
+</html>

@@ -2521,7 +2521,7 @@
                 }
             }
 
-            // حفظ الفئة
+            // حفظ الفئة - النسخة المعدلة
             async function saveCategory(event) {
                 event.preventDefault();
 
@@ -2529,14 +2529,26 @@
                     name: document.getElementById('category-name').value,
                     description: document.getElementById('category-description').value,
                     color: selectedColor,
-                    icon: selectedIcon,
-                    created_by: currentUser.id
+                    icon: selectedIcon
                 };
+
+                // إضافة created_by فقط إذا كان المستخدم موجوداً وكان ID صالحاً
+                if (currentUser && currentUser.id) {
+                    // تأكد أن currentUser.id هو UUID صالح وليس رقم
+                    if (typeof currentUser.id === 'string' && currentUser.id.includes('-')) {
+                        categoryData.created_by = currentUser.id;
+                    } else {
+                        console.warn('⚠️ user ID ليس UUID صالح:', currentUser.id);
+                        // لا تضيف created_by إذا لم يكن UUID صالح
+                    }
+                }
 
                 if (!categoryData.name) {
                     showAlert('❌ يرجى إدخال اسم الفئة', 'error');
                     return;
                 }
+
+                console.log('💾 بيانات الفئة المراد حفظها:', categoryData);
 
                 try {
                     const saveBtn = document.getElementById('save-category');
@@ -2544,21 +2556,28 @@
                     saveBtn.innerHTML = '<div class="loading"></div> جاري الحفظ...';
 
                     let result;
+
                     if (editingCategoryId) {
+                        console.log('✏️ جاري تحديث الفئة:', editingCategoryId);
                         result = await supabase
                             .from('categories')
                             .update(categoryData)
                             .eq('id', editingCategoryId)
                             .select();
                     } else {
+                        console.log('➕ جاري إضافة فئة جديدة');
                         result = await supabase
                             .from('categories')
                             .insert([categoryData])
                             .select();
                     }
 
-                    if (result.error) throw result.error;
+                    if (result.error) {
+                        console.error('❌ خطأ من Supabase:', result.error);
+                        throw result.error;
+                    }
 
+                    console.log('✅ نتيجة الحفظ:', result.data);
                     showAlert(`✅ تم ${editingCategoryId ? 'تحديث' : 'إضافة'} الفئة بنجاح`, 'success');
                     closeAddCategoryModal();
                     await loadCategories();
